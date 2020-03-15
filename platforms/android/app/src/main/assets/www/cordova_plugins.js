@@ -13,6 +13,14 @@ module.exports = [
     "clobbers": [
       "window.plugins.socialsharing"
     ]
+  },
+  {
+    "id": "cordova-clipboard.Clipboard",
+    "file": "plugins/cordova-clipboard/www/clipboard.js",
+    "pluginId": "cordova-clipboard",
+    "clobbers": [
+      "cordova.plugins.clipboard"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -20,7 +28,8 @@ module.exports.metadata =
 {
   "cordova-plugin-whitelist": "1.3.4",
   "es6-promise-plugin": "4.2.2",
-  "cordova-plugin-x-socialsharing": "5.6.4"
+  "cordova-plugin-x-socialsharing": "5.6.4",
+  "cordova-clipboard": "1.3.0"
 };
 // BOTTOM OF METADATA
 });

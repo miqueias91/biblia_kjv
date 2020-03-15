@@ -64,7 +64,7 @@
       })
     </script>
 
-    <title>Bíblia Sagrada KJA</title>
+    <title>Bíblia Sagrada KJV</title>
 </head>
 
 <body>
@@ -82,7 +82,7 @@
 <template id="tabbar.html">
   <ons-page id="tabbar-page">
     <ons-toolbar id="tabbar_">
-        <div class="center"><center>Bíblia Sagrada KJA</center></div>
+        <div class="center"><center>Bíblia Sagrada KJV</center></div>
       <div class="left">
         <ons-toolbar-button onclick="fn.toggleMenu()">
           <ons-icon style="color: #f5f5f5" icon="ion-navicon, material:md-menu"></ons-icon>
@@ -96,7 +96,7 @@
     <script>
       ons.getScriptPage().addEventListener('prechange', function(event) {
         if (event.target.matches('#appTabbar')) {
-              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada KJA';
+              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada KJV';
         }
       });
     </script>
@@ -1191,7 +1191,7 @@
                 var num_versiculo = $(this).attr('num_versiculo');
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
-              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
               cordova.plugins.clipboard.copy(text);
               cordova.plugins.clipboard.paste(function (text) { 
                 ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
@@ -1209,7 +1209,7 @@
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
               window.plugins.socialsharing.shareViaWhatsApp(
                 text, 
                 null, 
@@ -1233,7 +1233,7 @@
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
               window.plugins.socialsharing.shareViaInstagram(
                 text, 
                 null, 
@@ -1256,7 +1256,7 @@
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
               window.plugins.socialsharing.shareViaTwitter(text);
             });
           }
