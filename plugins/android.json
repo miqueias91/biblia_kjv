@@ -19,6 +19,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.phonegap.iindicate"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.phonegap.iindicate"
     }
   },
   "dependent_plugins": {
