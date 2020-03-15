@@ -16,6 +16,9 @@
     },
     "cordova-clipboard": {
       "PACKAGE_NAME": "com.phonegap.iindicate"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.phonegap.iindicate"
     }
   },
   "dependent_plugins": {
