@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="app" ng-csp>
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css" />
+    <link rel="stylesheet" href="css/index.css" />
+
+    <!-- JS dependencies (order matters!) -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+    <script type="text/javascript" src="lib/SocialSharing/SocialSharing.js"></script>
+    <script>
+      var admobid = {}
+      if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
+        admobid = {
+          banner: 'ca-app-pub-7091486462236476/1440852565',
+          interstitial: 'ca-app-pub-7091486462236476/4805382504',
+        }
+      }
+
+      document.addEventListener('deviceready', function () {
+        admob.banner.config({ 
+          id: admobid.banner, 
+          isTesting: false, 
+          autoShow: true, 
+        })
+        admob.banner.prepare()
+        
+        admob.interstitial.config({
+          id: admobid.interstitial,
+          isTesting: false,
+          autoShow: false,
+        })
+        admob.interstitial.prepare()
+
+        document.getElementsByClassName('showAd').disabled = true
+        document.getElementsByClassName('showAd').onclick = function() {
+          admob.interstitial.show()
+        }
+      }, false);
+
+      document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
+        //alert(JSON.stringify(event))
+      })
+
+      document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
+        //alert(JSON.stringify(event))
+      })
+
+      document.addEventListener('admob.interstitial.events.LOAD', function(event) {
+        //alert(JSON.stringify(event))
+        document.getElementsByClassName('showAd').disabled = false
+      })
+
+      document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
+        //alert(JSON.stringify(event))
+        admob.interstitial.prepare()
+      })
+    </script>
+
+    <title>Bíblia Sagrada KJA</title>
+</head>
+
+<body>
+<input type="hidden" id="existeProximoCapitulo" value="0">
+<input type="hidden" id="atual" value="0">
+<ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+  <ons-page>
+    <ons-splitter id="appSplitter">
+      <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
+      <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
+</ons-navigator>
+
+<template id="tabbar.html">
+  <ons-page id="tabbar-page">
+    <ons-toolbar id="tabbar_">
+        <div class="center"><center>Bíblia Sagrada KJA</center></div>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.toggleMenu()">
+          <ons-icon style="color: #f5f5f5" icon="ion-navicon, material:md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+    <ons-tabbar swipeable id="appTabbar" position="bottom">
+        <ons-tab label="Versão 1.0.1" page="home.html" active></ons-tab>
+    </ons-tabbar>
+
+    <script>
+      ons.getScriptPage().addEventListener('prechange', function(event) {
+        if (event.target.matches('#appTabbar')) {
+              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada KJA';
+        }
+      });
+    </script>
+  </ons-page>
+</template>
+
+<template id="sidemenu.html">
+  <ons-page>
+    <div class="profile-pic">
+      <img src="img/logo.png">
+    </div>
+
+    <ons-list>
+      <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Bíblia Sagrada'})">
+        <div class="left">
+          <i class="fas fa-book-open"></i>
+        </div>
+          Bíblia Sagrada
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'palavraDia.html', 'title': 'Palavra do dia'})">
+        <div class="left">
+          <i class="fas fa-comment"></i>
+        </div>
+        <div class="center">
+          Palavra do dia
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+
+      <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
+        <div class="left">
+            <i class="fas fa-edit"></i>
+        </div>
+        <div class="center">
+          Versículos Marcados
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'capitulosLidos.html', 'title': 'Capítulos Lidos'})">
+        <div class="left">
+            <i class="fas fa-list-alt"></i>
+        </div>
+        <div class="center">
+          Capítulos Lidos
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>  
+
+      <ons-list-item onclick="fn.pushPage({'id': 'configuracao.html', 'title': 'Configuração'})">
+        <div class="left">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <div class="center">
+          Configuração
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/details?id=com.phonegap.calculadorabasic')">
+        <div class="left">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="center">
+          Quiz da Bíblia
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.loadLink('https://www.instagram.com/oficialumavidacomdeus/')">
+        <div class="left">
+            <i class="fab fa-instagram"></i>
+        </div>
+        <div class="center">
+          Instagram
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.loadLink('https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=332375636-d8a2e7ce-a38d-4b8c-b080-5b277b3df2a5')">
+        <div class="left">
+          <i class="fas fa-hand-holding-usd"></i>
+        </div>
+        <div class="center">
+          Doe
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+
+      <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
+        <div class="left">
+          <i class="fab fa-google-play"></i>
+        </div>
+        <div class="center">
+          Outros app's
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+    </ons-list>
+
+    <script>
+      ons.getScriptPage().onInit = function() {
+        // Set ons-splitter-side animation
+        this.parentElement.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+      };
+    </script>
+
+    <style>
+      .profile-pic {
+        width: 100%;
+        background-color: #333;
+        margin: 0 auto;
+      }
+
+        .profile-pic > img {
+            width: 80px;
+            height: 80px;
+            display: block;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+      ons-list-item {
+        color: #444;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<!-- MODAL DE AGUARDE -->
+<ons-modal id="modal-aguarde">
+    <p style="text-align: center">
+        <ons-icon icon="fa-spinner" spin></ons-icon>
+        <br><br>
+    </p>
+</ons-modal>
+
+<template id="home.html">
+  <ons-page>
+    <p class="intro">In 1604, King James I of England authorized that a new translation of the Bible into English be started.</p>
+    <p class="intro">It was finished in 1611, just 85 years after the first translation of the New Testament into English appeared (Tyndale, 1526).</p> 
+    <p class="intro">The Authorized Version, or King James Version, quickly became the standard for English-speaking Protestants.</p>
+    <p class="intro">Its flowing language and prose rhythm has had a profound influence on the literature of the past 400 years. The King James Version present on the Bible Gateway matches the 1987 printing. 
+    <p class="intro">The KJV is public domain in the United States.</p>
+
+
+    <style>
+      .intro {
+        text-align: justify;
+        padding: 0 20px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="versiculosMarcados.html">
+  <ons-page>
+        <ons-toolbar id="versiculosMarcados_">
+            <div class="left">
+                <ons-back-button>Versículos Marcados</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoVersiculo">
+            
+        </div>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            admob.interstitial.show();
+            $("#textoVersiculo").html('');
+            this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
+            var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
+            if (lista_marcadores) {
+              for(var i=0; i<lista_marcadores.length; i++) {
+                app.buscaVersiculo('en_kjv',lista_marcadores[i]['livro']+"||"+lista_marcadores[i]['num_capitulo']+"."+(parseInt(lista_marcadores[i]['num_versiculo'])+0),"textoVersiculo"); 
+              }   
+            }
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="configuracao.html">
+  <ons-page>
+        <ons-toolbar id="configuracao_">
+            <div class="left">
+                <ons-back-button>Palavra do Dia</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+   
+
+      <ons-list>
+        <ons-list-item onclick="showTemplateDialog()">
+          <div class="left">
+          </div>
+          <div class="center">
+            Fonte para Leitura
+          </div>
+          <div class="right">
+            <ons-icon icon="fa-angle-right"></ons-icon>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item>
+          <div class="left">&nbsp;</div>
+          <div class="center">
+            Modo Noturno
+          </div>
+          <div class="right">
+            <label class="switch">
+              <input type="checkbox" class="switch__input" id="modo_noturno">
+              <div class="switch__toggle">
+                <div class="switch__handle"></div>
+              </div>
+            </label>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    <script>
+        ons.getScriptPage().onInit = function () {
+          admob.interstitial.show();
+          modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+          $("#modo_noturno").attr("checked",modo_noturno);
+          
+          $("#textoVersiculo").html('');
+          this.querySelector('#configuracao_ div.center').textContent = 'Configuração';
+
+          $( "#modo_noturno" ).click(function() {
+            localStorage.setItem("modo-noturno",$("#modo_noturno").prop( "checked" ));
+          });
+        }
+    </script>
+    <style>        
+        .button-margin {
+            margin: 6px 0;
+          }
+          .card__title,
+          .card--material__title {
+            font-size: 20px;
+          }
+    </style>
+  </ons-page>
+</template>
+
+<template id="dialog.html">
+  <ons-dialog id="my-dialog">
+    <div style="text-align: center; padding: 10px;">
+      <p>
+        <ons-row>
+          <ons-col width="40px" style="text-align: center; line-height: 31px;">
+            <ons-icon icon="md-minus"></ons-icon>
+          </ons-col>
+          <ons-col>
+            <ons-range id="range-slider" style="width: 100%;" value="20" min="10" max="25"></ons-range>
+          </ons-col>
+          <ons-col width="40px" style="text-align: center; line-height: 31px;">
+            <ons-icon icon="md-plus"></ons-icon>
+          </ons-col>
+        </ons-row>
+        Tamanho:<span id="font">&nbsp;20</span>
+      </p>
+      <p>
+        <ons-button onclick="fn.hideDialog('my-dialog')">Salvar</ons-button>
+      </p>
+    </div>
+    <script>
+      var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
+      document.getElementById('font').innerHTML = `&nbsp;${fonte_versiculo}`;
+      $("#range-slider").val(fonte_versiculo)
+
+      document.getElementById('range-slider').addEventListener('input', function (event) {
+        document.getElementById('font').innerHTML = `&nbsp;${event.target.value}`;
+        localStorage.setItem("fonte-versiculo", event.target.value);
+      })
+    </script>
+  </ons-dialog>
+</template>
+
+<template id="palavraDia.html">
+  <ons-page>
+        <ons-toolbar id="palavraDia_">
+            <div class="left">
+                <ons-back-button>Palavra do Dia</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoVersiculo">
+            
+        </div>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            admob.interstitial.show();
+            $("#textoVersiculo").html('');
+            this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
+            var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
+            app.buscaVersiculo('en_kjv',versiculos[parseInt(Math.random()*50)],"textoVersiculo");
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="capitulosLidos.html">
+  <ons-page>
+        <ons-toolbar id="capitulosLidos_">
+            <div class="left">
+                <ons-back-button>Capítulos Lidos</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <ons-list id="textoCapitulosLidos">
+            
+        </ons-list>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            admob.interstitial.show();
+            $("#textoCapitulosLidos").html('');
+            this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
+            var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
+            lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos'));
+            if (lista_capitulos) {
+              for(var i=0; i<lista_capitulos.length; i++) {
+                $("#textoCapitulosLidos").append(
+                    '<ons-list-item class="showAd">'+
+                    '    <div class="left"></div>'+
+                    '    <div class="center" style="font-size: 20px;">'+lista_capitulos[i]+'</div>'+
+                    '    <div class="right"></div>'+
+                    '</ons-list-item>'
+                );
+               
+              }   
+            }
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="biblia.html">
+  <ons-page>
+        <ons-toolbar id="biblia_">
+            <div class="left">
+                <ons-back-button>Bíblia Sagrada</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+    <ons-card onclick="fn.pushPage({'id': 'antigoTestamento.html', 'title': 'Old Testament'})">
+        <div class="title" style="color: #F5F5F5;">Old Testament</div>
+    </ons-card>
+    <ons-card onclick="fn.pushPage({'id': 'novoTestamento.html', 'title': 'New Testament'})">
+        <div class="title" style="color: #F5F5F5;">New Testament</div>
+    </ons-card>
+    <script>
+        ons.getScriptPage().onInit = function () {
+            this.querySelector('#biblia_ div.center').textContent = 'Bíblia Sagrada';
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="antigoTestamento.html">
+    <ons-page id="antigoTestamento_" class="">
+        <input type="hidden" id="OneSignalUserId" value="">
+        <input type="hidden" id="OneSignalPushToken" value="">
+
+        <ons-toolbar id="">
+            <div class="left">
+                <ons-back-button>Old Testament</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+
+        <ons-list id="lista_livro_antigo">
+
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'gn||Genesis||50'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Genesis</div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ex||Exodus||40'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Exodus  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'lv||Leviticus||27'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Leviticus   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'nm||Numbers||36'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Numbers </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'dt||Deuteronomy||34'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Deuteronomy   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'js||Joshua||24'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Joshua  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jud||Judges ||21'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Judges  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'rt||Ruth||4'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Ruth   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1sm||1º Samuel||31'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">1 Samuel   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '2sm||2º Samuel||24'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">2 Samuel   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1kgs||1º Kings||22'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">1 Kings  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '2kgs||2º Kings||25'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">2 Kings  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1ch||1º Chronicles||29'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">1 Chronicles  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1ch||2º Chronicles||36'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">2 Chronicles  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ezr||Ezra ||10'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Ezra  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ne||Nehemiah||13'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Nehemiah </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'et||Esther||10'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Esther  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'Job||Job ||42'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Job  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ps||Psalm ||150'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Psalm  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'prv||Proverbs ||31'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Proverbs  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ec||Ecclesiastes||12'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Ecclesiastes </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'so||Song of Solomon||8'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Song of Solomon   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'is||Isaiah||66'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Isaiah  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jr||Jeremiah||52'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Jeremiah   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'lm||Lamentations||5'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Lamentations </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ez||Ezekiel||48'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Ezekiel   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'dn||Daniel||12'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Daniel  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ho||Hosea||14'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Hosea  </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jl||Joel||3'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Joel    </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'am||Amos||9'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Amos    </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ob||Obadiah||1'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Obadiah </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jn||Jonah||4'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Jonah   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'mi||Micah||7'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Micah    </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'na||Nahum||3'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Nahum    </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'hk||Habakkuk||3'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Habakkuk   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'zp||Zephaniah||3'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Zephaniah    </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'hg||Haggai||2'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Haggai    </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'zc||Zechariah||14'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Zechariah    </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ml||Malachi||4'})">
+                <div class="left"></div>
+                <div class="center" style="font-size: 20px;">Malachi   </div>
+                <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+            </ons-list-item>
+
+      
+        </ons-list>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            this.querySelector('#antigoTestamento_ div.center').textContent = 'Old Testament';
+        }
+    </script>
+    <style>        
+        .button-margin {
+            margin: 6px 0;
+          }
+          .card__title,
+          .card--material__title {
+            font-size: 20px;
+          }
+    </style>
+    </ons-page>
+</template>
+
+<template id="novoTestamento.html">
+    <ons-page id="novoTestamento">
+        <ons-toolbar id="novoTestamento_">
+            <div class="left">
+                <ons-back-button>New Testament</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <ons-list id="lista_livro_novo">
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'mt||Matthew||28'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Matthew  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'mk||Mark||16'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Mark  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'lk||Luke||24'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Luke   
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jo||John||21'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">John    
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'act||Acts||28'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Acts  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'rm||Romans||16'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            Romans </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1co||1 Corinthians||16'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">1 Corinthians    
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '2co||2 Corinthians||13'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">2 Corinthians    
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'gl||Galatians||6'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            Galatians </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'eph||Ephesians||6'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            Ephesians </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'ph||Philippians||4'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Philippians  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'cl||Colossians||4'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            Colossians </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1ts||1 Thessalonians||5'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">1 Thessalonians  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '2ts||2 Thessalonians||3'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">2 Thessalonians  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1tm||1 Timothy||6'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">1 Timothy  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '2tm||2 Timothy||4'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">2 Timothy  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'tt||Titus||3'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Titus    
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'phm||Philemon||1'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            Philemon </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'hb||Hebrews||13'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            Hebrews </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jm||James||5'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">James   
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1pe||1 Peter||5'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">1 Peter    
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '2pe||2 Peter||3'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">2 Peter    
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1jo||1 John||5'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            1 John </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '2jo||2 John||1'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            2 John </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '3jo||3 John||1'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">
+            3 John </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jd||Jude||1'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Jude   
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>                  
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 're||Revelation||22'})">
+            <div class="left"></div>
+            <div class="center" style="font-size: 20px;">Revelation  
+            </div>
+            <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
+        </ons-list-item>
+    </ons-list>
+    <script>
+        ons.getScriptPage().onInit = function () {
+            this.querySelector('#novoTestamento_ div.center').textContent = 'New Testament';
+        }
+    </script>
+    <style>        
+        .button-margin {
+            margin: 6px 0;
+          }
+          .card__title,
+          .card--material__title {
+            font-size: 20px;
+          }
+    </style>
+    </ons-page>
+</template>
+
+
+<template id="conteudoLivro.html">
+    <ons-page>
+        <ons-toolbar id="conteudoLivro_">
+            <div class="left">
+                <ons-back-button>Conteúdo do Livro</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id='conteudoLivro'>
+             
+        </div>
+        <script>
+        ons.getScriptPage().onInit = function () {
+            admob.interstitial.show();
+            var dados = this.data.title.split('||'); 
+            this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
+            $("#conteudoLivro").html('');
+            for (var i = 0; i < parseInt(dados[2]); i++) {
+                var cap = i+1;
+                $("#conteudoLivro").append(
+                    '<ons-list-item onclick="fn.pushPage({\'id\': \'textoLivro.html\', \'title\': \''+dados[0]+'||'+dados[1]+'||'+dados[2]+'||'+cap+'\'})">'
+                        +'<div class="left"></div>'
+                        +'<div class="center" style="font-size: 20px;">Chapter '+cap+'</div>'
+                        +'<div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>'
+                    +'</ons-list-item>'
+                );
+            }
+        }
+        </script>
+        <style>
+          .button-margin {
+            margin: 6px 0;
+          }
+        </style>
+    </ons-page>
+</template>
+
+<template id="textoLivro.html">
+    <ons-page id="onsPageTextoLivro">
+      <ons-toolbar id="textoLivro_">
+        <div class="left">
+          <ons-back-button>Texto do Livro</ons-back-button>
+        </div>
+        <div class="center"></div>
+        <div class="right" id="rolagem" style="color: #f5f5f5;margin-right: 16px;">Scrolling</div>
+      </ons-toolbar>
+
+      <div id='textoLivro'>
+        
+      </div>
+
+      <ons-fab class="copiar" position="top left" style="display: none;">
+        <ons-icon icon="md-copy"></ons-icon>
+      </ons-fab>
+
+      <ons-speed-dial position="top right" direction="down" :open.sync="spdOpen" style="display: none;" class="compartilha">
+        <ons-fab class="compartilhar">
+          <ons-icon icon="md-share"></ons-icon>
+        </ons-fab>
+        <ons-speed-dial-item class="compartilhar_whatsapp">
+          <ons-icon icon="md-whatsapp"></ons-icon>
+        </ons-speed-dial-item>
+
+        <ons-speed-dial-item class="compartilhar_twitter">
+          <ons-icon icon="md-twitter"></ons-icon>
+        </ons-speed-dial-item>
+
+        <ons-speed-dial-item class="compartilhar_instagram">
+          <ons-icon icon="md-instagram"></ons-icon>
+        </ons-speed-dial-item>
+      </ons-speed-dial>
+
+      <ons-fab class="cores" position="bottom right" style="display:none;bottom: 80px;background-color: yellow!important;opacity: 1!important;" id="yellow">
+      </ons-fab>
+
+      <ons-fab class="cores" position="bottom center" style="display:none;bottom: 80px;background-color: green!important;opacity: 1!important;" id="green">
+      </ons-fab>
+
+      <ons-fab class="cores" position="bottom left" style="display:none;bottom: 80px;background-color: orange!important;opacity: 1!important;" id="orange">
+      </ons-fab>
+
+      <ons-fab class="botao_controle" position="bottom right" style="bottom: 75px;" id="proximo">
+        <ons-icon icon="fa-angle-right"></ons-icon>
+      </ons-fab>
+
+      <ons-fab class="botao_controle" position="bottom left" style="bottom: 75px;" id="anterior">
+        <ons-icon icon="fa-angle-left"></ons-icon>
+      </ons-fab>
+
+      <ons-fab id="controle_rolagem" position="bottom center" style="display:none;bottom:0;background-color:#eceff1!important;opacity:1!important;border-radius:0!important;width:100%!important;left:0;margin-left:0;height: 60px">
+        <p>
+          <ons-row>
+            <ons-col id="pausar_rolagem" width="40px" style="text-align: center; line-height: 31px;color: #333">
+              <ons-icon id="pause" icon="md-pause"></ons-icon>
+              <ons-icon id="play" icon="md-play" style="display: none;"></ons-icon>
+            </ons-col>
+
+            <ons-col>
+              <ons-range id="velocidade" style="width: 100%;" value="30" max="50" min="10"></ons-range>
+            </ons-col>
+
+            <ons-col id="fechar_rolagem" width="40px" style="text-align: center; line-height: 31px;color: #333">
+              <ons-icon icon="md-close"></ons-icon>
+            </ons-col>
+          </ons-row>
+        </p>
+      </ons-fab>
+
+
+
+        <script>
+          ons.getScriptPage().onInit = function () {
+            var dados = this.data.title.split('||'); 
+            var ultimoCap = dados[2];
+            this.querySelector('#textoLivro_ div.center').textContent = dados[1]+' '+dados[3];
+            //CHAMA DA FUNÇÃO PARA ABRIR MODAL
+            fn.showDialog('modal-aguarde');
+            app.buscaTexto('en_kjv',dados[0],dados[3], dados[1]);
+            
+            var timeoutID = 0;
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+
+            document.getElementById('velocidade').addEventListener('input', function (event) {
+              velocidade = 0;
+              velocidade = parseInt(event.target.value);
+            })
+
+            $("#atual").val(dados[3]);
+
+            $( "#rolagem" ).click(function() {
+              if (rolagem == 0) {
+                $("#controle_rolagem").css("display","");
+                velocidade = 30;
+                $("#velocidade").val(velocidade);
+                rolagem = 1;
+                app.rolar();
+              }
+            });
+
+            $( "#pausar_rolagem" ).click(function() {
+              if (pausar == 0) {
+                tmp_velocidade = velocidade;
+                velocidade = 0;
+                pausar = 1;
+                $("#pause").css("display","none");
+                $("#play").css("display","");
+              }
+              else{
+                velocidade = tmp_velocidade;
+                pausar = 0;
+                $("#pause").css("display","");
+                $("#play").css("display","none");
+                app.rolar();
+              }
+            });
+
+            $( "#fechar_rolagem" ).click(function() {
+              velocidade = 0;
+              rolagem = 0;
+              $("#controle_rolagem").css("display","none");
+            });
+
+            $( "#proximo" ).click(function() {
+              if (parseInt($("#atual").val()) < parseInt(ultimoCap)) {
+                inicioLeitura = 0;
+                velocidade = 0;
+                pausar = 0;
+                rolagem = 0;
+
+                $("#controle_rolagem").css("display","none");
+
+                $("#atual").val(parseInt($("#atual").val())+1)
+
+                //CHAMA DA FUNÇÃO PARA ABRIR MODAL
+                fn.showDialog('modal-aguarde');
+                app.buscaTexto('en_kjv',dados[0],parseInt($("#atual").val()), dados[1]);
+                $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
+                var timeoutID = 0;
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+              }      
+            });
+
+            $( "#anterior" ).click(function() {
+              if (parseInt($("#atual").val()) > 1) {
+                inicioLeitura = 0;
+                velocidade = 0;
+                pausar = 0;
+                rolagem = 0;
+
+                $("#controle_rolagem").css("display","none");
+                $("#atual").val(parseInt($("#atual").val())-1)
+
+                //CHAMA DA FUNÇÃO PARA ABRIR MODAL
+                fn.showDialog('modal-aguarde');
+                app.buscaTexto('en_kjv',dados[0],parseInt($("#atual").val()), dados[1]);
+                $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
+                var timeoutID = 0;
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+              }      
+            });
+
+            $( ".copiar" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              cordova.plugins.clipboard.copy(text);
+              cordova.plugins.clipboard.paste(function (text) { 
+                ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
+              });
+              //cordova.plugins.clipboard.clear();
+            });
+
+            $( ".compartilhar_whatsapp" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaWhatsApp(
+                text, 
+                null, 
+                null, 
+                function() {
+                  ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 2000 });
+                }, 
+                function(errormsg){
+                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                }
+              )
+            });
+
+            $( ".compartilhar_instagram" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaInstagram(
+                text, 
+                null, 
+                function() {
+                  ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 2000 });
+                }, 
+                function(errormsg){
+                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                }
+              )
+            });
+
+            $( ".compartilhar_twitter" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada KJA\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaTwitter(text);
+            });
+          }
+        </script>
+        <style>
+          .button-margin {
+            margin: 6px 0;
+          }
+        </style>
+    </ons-page>
+</template>
+<script src="js/index.js"></script>
+
+</body>
+
+</html>
