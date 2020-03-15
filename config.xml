@@ -18,9 +18,7 @@
     <preference name="WindowsToastCapable" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="phonegap-version" value="cli-8.0.0" />
-
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
@@ -52,4 +50,7 @@
         <allow-intent href="market:*" />
     </platform>
     <engine name="android" spec="~7.0.0" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.6.4">
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
+    </plugin>
 </widget>
