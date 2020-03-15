@@ -22,10 +22,22 @@
     },
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "com.phonegap.iindicate"
+    },
+    "cordova-plugin-admob-free": {
+      "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4229833281",
+      "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "com.phonegap.iindicate"
     }
   },
   "dependent_plugins": {
     "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.phonegap.iindicate"
+    },
+    "cordova-promise-polyfill": {
+      "PACKAGE_NAME": "com.phonegap.iindicate"
+    },
+    "cordova-admob-sdk": {
+      "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "com.phonegap.iindicate"
     }
   }
