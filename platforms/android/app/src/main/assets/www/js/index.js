@@ -231,13 +231,13 @@ var app = {
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
             lista_capitulos.push(capitulo_marcar);
             localStorage.setItem("lista-capitulos", JSON.stringify(lista_capitulos));
-            ons.notification.toast('Capítulo marcado como lido.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Chapter marked as read.', { buttonLabel: 'Ok', timeout: 1500 });
           }
           else{
             $(this).attr('capitulo_marcado',0);
             lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos'));
             app.retirarCapitulo(capitulo_marcar, lista_capitulos);
-            ons.notification.toast('Capítulo desmarcado como lido.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Chapter deselected as read.', { buttonLabel: 'Ok', timeout: 1500 });
           }
         });
 

@@ -64,7 +64,7 @@
       })
     </script>
 
-    <title>Bíblia Sagrada KJV</title>
+    <title>Holy Bible KJV</title>
 </head>
 
 <body>
@@ -82,7 +82,7 @@
 <template id="tabbar.html">
   <ons-page id="tabbar-page">
     <ons-toolbar id="tabbar_">
-        <div class="center"><center>Bíblia Sagrada KJV</center></div>
+        <div class="center"><center>Holy Bible KJV</center></div>
       <div class="left">
         <ons-toolbar-button onclick="fn.toggleMenu()">
           <ons-icon style="color: #f5f5f5" icon="ion-navicon, material:md-menu"></ons-icon>
@@ -90,13 +90,13 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.1" page="home.html" active></ons-tab>
+        <ons-tab label="Version 1.0.1" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
       ons.getScriptPage().addEventListener('prechange', function(event) {
         if (event.target.matches('#appTabbar')) {
-              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada KJV';
+              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Holy Bible KJV';
         }
       });
     </script>
@@ -110,23 +110,23 @@
     </div>
 
     <ons-list>
-      <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Bíblia Sagrada'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Holy Bible'})">
         <div class="left">
           <i class="fas fa-book-open"></i>
         </div>
-          Bíblia Sagrada
+          Holy Bible
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.pushPage({'id': 'palavraDia.html', 'title': 'Palavra do dia'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'palavraDia.html', 'title': 'Word of the day'})">
         <div class="left">
           <i class="fas fa-comment"></i>
         </div>
         <div class="center">
-          Palavra do dia
+          Word of the day
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
@@ -134,36 +134,36 @@
       </ons-list-item>
 
 
-      <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Marked Verses'})">
         <div class="left">
             <i class="fas fa-edit"></i>
         </div>
         <div class="center">
-          Versículos Marcados
+          Marked Verses
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.pushPage({'id': 'capitulosLidos.html', 'title': 'Capítulos Lidos'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'capitulosLidos.html', 'title': 'Chapters Read'})">
         <div class="left">
             <i class="fas fa-list-alt"></i>
         </div>
         <div class="center">
-          Capítulos Lidos
+          Chapters Read
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
         </div>
       </ons-list-item>  
 
-      <ons-list-item onclick="fn.pushPage({'id': 'configuracao.html', 'title': 'Configuração'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'configuracao.html', 'title': 'Settings'})">
         <div class="left">
           <i class="fas fa-cogs"></i>
         </div>
         <div class="center">
-          Configuração
+          Settings
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
@@ -175,7 +175,7 @@
             <i class="fas fa-comments"></i>
         </div>
         <div class="center">
-          Quiz da Bíblia
+          Bible Quiz
         </div>
         <div class="right">
           <ons-icon icon="fa-external-link"></ons-icon>
@@ -199,7 +199,7 @@
           <i class="fas fa-hand-holding-usd"></i>
         </div>
         <div class="center">
-          Doe
+          Donate
         </div>
         <div class="right">
           <ons-icon icon="fa-external-link"></ons-icon>
@@ -212,7 +212,7 @@
           <i class="fab fa-google-play"></i>
         </div>
         <div class="center">
-          Outros app's
+          Others app's
         </div>
         <div class="right">
           <ons-icon icon="fa-external-link"></ons-icon>
@@ -289,7 +289,7 @@
   <ons-page>
         <ons-toolbar id="versiculosMarcados_">
             <div class="left">
-                <ons-back-button>Versículos Marcados</ons-back-button>
+                <ons-back-button>Marked Verses</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
@@ -301,7 +301,7 @@
         ons.getScriptPage().onInit = function () {
             admob.interstitial.show();
             $("#textoVersiculo").html('');
-            this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
+            this.querySelector('#versiculosMarcados_ div.center').textContent = 'Marked Verses';
             var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
             if (lista_marcadores) {
               for(var i=0; i<lista_marcadores.length; i++) {
@@ -338,7 +338,7 @@
   <ons-page>
         <ons-toolbar id="configuracao_">
             <div class="left">
-                <ons-back-button>Palavra do Dia</ons-back-button>
+                <ons-back-button>Word of the day</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
@@ -349,7 +349,7 @@
           <div class="left">
           </div>
           <div class="center">
-            Fonte para Leitura
+            Font size
           </div>
           <div class="right">
             <ons-icon icon="fa-angle-right"></ons-icon>
@@ -359,7 +359,7 @@
         <ons-list-item>
           <div class="left">&nbsp;</div>
           <div class="center">
-            Modo Noturno
+            Night Mode
           </div>
           <div class="right">
             <label class="switch">
@@ -378,7 +378,7 @@
           $("#modo_noturno").attr("checked",modo_noturno);
           
           $("#textoVersiculo").html('');
-          this.querySelector('#configuracao_ div.center').textContent = 'Configuração';
+          this.querySelector('#configuracao_ div.center').textContent = 'Settings';
 
           $( "#modo_noturno" ).click(function() {
             localStorage.setItem("modo-noturno",$("#modo_noturno").prop( "checked" ));
@@ -412,10 +412,10 @@
             <ons-icon icon="md-plus"></ons-icon>
           </ons-col>
         </ons-row>
-        Tamanho:<span id="font">&nbsp;20</span>
+        Size:<span id="font">&nbsp;20</span>
       </p>
       <p>
-        <ons-button onclick="fn.hideDialog('my-dialog')">Salvar</ons-button>
+        <ons-button onclick="fn.hideDialog('my-dialog')">Salve</ons-button>
       </p>
     </div>
     <script>
@@ -435,7 +435,7 @@
   <ons-page>
         <ons-toolbar id="palavraDia_">
             <div class="left">
-                <ons-back-button>Palavra do Dia</ons-back-button>
+                <ons-back-button>Word of the day</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
@@ -447,7 +447,7 @@
         ons.getScriptPage().onInit = function () {
             admob.interstitial.show();
             $("#textoVersiculo").html('');
-            this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
+            this.querySelector('#palavraDia_ div.center').textContent = 'Word of the day';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
             app.buscaVersiculo('en_kjv',versiculos[parseInt(Math.random()*50)],"textoVersiculo");
         }
@@ -480,7 +480,7 @@
   <ons-page>
         <ons-toolbar id="capitulosLidos_">
             <div class="left">
-                <ons-back-button>Capítulos Lidos</ons-back-button>
+                <ons-back-button>Chapters Read</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
@@ -492,7 +492,7 @@
         ons.getScriptPage().onInit = function () {
             admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
-            this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
+            this.querySelector('#capitulosLidos_ div.center').textContent = 'Chapters Read';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
             lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos'));
             if (lista_capitulos) {
@@ -537,7 +537,7 @@
   <ons-page>
         <ons-toolbar id="biblia_">
             <div class="left">
-                <ons-back-button>Bíblia Sagrada</ons-back-button>
+                <ons-back-button>Holy Bible</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
@@ -549,7 +549,7 @@
     </ons-card>
     <script>
         ons.getScriptPage().onInit = function () {
-            this.querySelector('#biblia_ div.center').textContent = 'Bíblia Sagrada';
+            this.querySelector('#biblia_ div.center').textContent = 'Holy Bible';
         }
     </script>
     <style>
@@ -982,7 +982,7 @@
     <ons-page>
         <ons-toolbar id="conteudoLivro_">
             <div class="left">
-                <ons-back-button>Conteúdo do Livro</ons-back-button>
+                <ons-back-button>Book Content</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
@@ -1019,7 +1019,7 @@
     <ons-page id="onsPageTextoLivro">
       <ons-toolbar id="textoLivro_">
         <div class="left">
-          <ons-back-button>Texto do Livro</ons-back-button>
+          <ons-back-button>Book Text</ons-back-button>
         </div>
         <div class="center"></div>
         <div class="right" id="rolagem" style="color: #f5f5f5;margin-right: 16px;">Scrolling</div>
@@ -1188,13 +1188,13 @@
                 var txt_versiculo = $(this).text().substr(2);
                 var livro = $(this).attr('livro');
                 var num_capitulo = $(this).attr('num_capitulo');
-                var num_versiculo = $(this).attr('num_versiculo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
-              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
+              text += 'Version: Holy Bible KJV\nLink: bit.ly/2PCUN2d';
               cordova.plugins.clipboard.copy(text);
               cordova.plugins.clipboard.paste(function (text) { 
-                ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
+                ons.notification.toast('Copied to the clipboard.', { buttonLabel: 'Ok', timeout: 2000 });
               });
               //cordova.plugins.clipboard.clear();
             });
@@ -1205,20 +1205,20 @@
                 var txt_versiculo = $(this).text().substr(2);
                 var livro = $(this).attr('livro');
                 var num_capitulo = $(this).attr('num_capitulo');
-                var num_versiculo = $(this).attr('num_versiculo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
+              text += 'Version: Holy Bible KJV\nLink: bit.ly/2PCUN2d';
               window.plugins.socialsharing.shareViaWhatsApp(
                 text, 
                 null, 
                 null, 
                 function() {
-                  ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 2000 });
+                  ons.notification.toast('Shared on WhatsApp.', { buttonLabel: 'Ok', timeout: 2000 });
                 }, 
                 function(errormsg){
-                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                  ons.notification.toast("Couldn't share.", { buttonLabel: 'Ok', timeout: 2000 });
                 }
               )
             });
@@ -1229,19 +1229,19 @@
                 var txt_versiculo = $(this).text().substr(2);
                 var livro = $(this).attr('livro');
                 var num_capitulo = $(this).attr('num_capitulo');
-                var num_versiculo = $(this).attr('num_versiculo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
+              text += 'Version: Holy Bible KJV\nLink: bit.ly/2PCUN2d';
               window.plugins.socialsharing.shareViaInstagram(
                 text, 
                 null, 
                 function() {
-                  ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 2000 });
+                  ons.notification.toast('Shared on Instagram.', { buttonLabel: 'Ok', timeout: 2000 });
                 }, 
                 function(errormsg){
-                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                  ons.notification.toast("Couldn't share.", { buttonLabel: 'Ok', timeout: 2000 });
                 }
               )
             });
@@ -1252,11 +1252,11 @@
                 var txt_versiculo = $(this).text().substr(2);
                 var livro = $(this).attr('livro');
                 var num_capitulo = $(this).attr('num_capitulo');
-                var num_versiculo = $(this).attr('num_versiculo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada KJV\nLink: bit.ly/2PCUN2d';
+              text += 'Version: Holy Bible KJV\nLink: bit.ly/2PCUN2d';
               window.plugins.socialsharing.shareViaTwitter(text);
             });
           }
