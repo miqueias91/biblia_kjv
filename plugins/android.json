@@ -27,6 +27,9 @@
       "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4229833281",
       "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "com.phonegap.iindicate"
+    },
+    "cordova-plugin-insomnia": {
+      "PACKAGE_NAME": "com.phonegap.iindicate"
     }
   },
   "dependent_plugins": {
