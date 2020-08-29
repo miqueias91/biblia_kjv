@@ -15,6 +15,11 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/SocialSharing/SocialSharing.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
+    <script type="text/javascript" src="js/firebase.js"></script>
     <script>
       var admobid = {}
       if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
@@ -91,7 +96,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Version 1.0.4" page="home.html" active></ons-tab>
+        <ons-tab label="Version 1.0.5" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -171,19 +176,7 @@
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/details?id=com.phonegap.calculadorabasic')">
-        <div class="left">
-            <i class="fas fa-comments"></i>
-        </div>
-        <div class="center">
-          Bible Quiz
-        </div>
-        <div class="right">
-          <ons-icon icon="fa-external-link"></ons-icon>
-        </div>
-      </ons-list-item>
-
-      <ons-list-item onclick="fn.loadLink('https://www.instagram.com/oficialumavidacomdeus/')">
+      <ons-list-item onclick="fn.loadLink('https://www.instagram.com/oficial.umavidacomdeus/')">
         <div class="left">
             <i class="fab fa-instagram"></i>
         </div>
@@ -194,19 +187,6 @@
           <ons-icon icon="fa-external-link"></ons-icon>
         </div>
       </ons-list-item>
-
-      <ons-list-item onclick="fn.loadLink('https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=332375636-d8a2e7ce-a38d-4b8c-b080-5b277b3df2a5')">
-        <div class="left">
-          <i class="fas fa-hand-holding-usd"></i>
-        </div>
-        <div class="center">
-          Donate
-        </div>
-        <div class="right">
-          <ons-icon icon="fa-external-link"></ons-icon>
-        </div>
-      </ons-list-item>
-
 
       <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
         <div class="left">
@@ -339,7 +319,7 @@
   <ons-page>
         <ons-toolbar id="configuracao_">
             <div class="left">
-                <ons-back-button>Word of the day</ons-back-button>
+                <ons-back-button>Settings</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
@@ -407,7 +387,7 @@
             <ons-icon icon="md-minus"></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-range id="range-slider" style="width: 100%;" value="20" min="10" max="25"></ons-range>
+            <ons-range id="range-slider" style="width: 100%;" value="20" min="10" max="35"></ons-range>
           </ons-col>
           <ons-col width="40px" style="text-align: center; line-height: 31px;">
             <ons-icon icon="md-plus"></ons-icon>
