@@ -1,13 +1,13 @@
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyCg0otYeMK0aLc9eTae4vh2mn2AK7NAwDQ",
-    authDomain: "biblia-sagrada-kja.firebaseapp.com",
-    databaseURL: "https://biblia-sagrada-kja.firebaseio.com",
-    projectId: "biblia-sagrada-kja",
-    storageBucket: "biblia-sagrada-kja.appspot.com",
-    messagingSenderId: "804565278470",
-    appId: "1:804565278470:web:823c28ccc153c84f20c887",
-    measurementId: "G-WS0N1K4PBG"
+    apiKey: "AIzaSyDLBA7bfXA5mvYvVdlz_t0VcAtMPR2si3c",
+    authDomain: "biblia-sagrada-ntlh.firebaseapp.com",
+    databaseURL: "https://biblia-sagrada-ntlh-default-rtdb.firebaseio.com",
+    projectId: "biblia-sagrada-ntlh",
+    storageBucket: "biblia-sagrada-ntlh.appspot.com",
+    messagingSenderId: "519771413167",
+    appId: "1:519771413167:web:c32fac7919b534f787125a",
+    measurementId: "G-D594E6Z95R"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
