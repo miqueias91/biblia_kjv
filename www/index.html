@@ -20,15 +20,14 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
     <script type="text/javascript" src="js/firebase.js"></script>
-    <script type="text/javascript">
+    <script>
       var admobid = {}
-      if (/(android)/i.test(navigator.userAgent)) {
+      if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
         admobid = {
-          banner: 'ca-app-pub-7091486462236476/1440852565',
-          interstitial: 'ca-app-pub-7091486462236476/4805382504',
+          banner: 'ca-app-pub-7091486462236476/6503994751',
+          interstitial: 'ca-app-pub-7091486462236476/2185511187',
         }
       }
-
       document.addEventListener('deviceready', function () {
         window.plugins.insomnia.keepAwake();
         admob.banner.config({ 
@@ -37,40 +36,33 @@
           autoShow: true, 
         })
         admob.banner.prepare()
-        
         admob.interstitial.config({
           id: admobid.interstitial,
           isTesting: false,
           autoShow: false,
         })
         admob.interstitial.prepare()
-
         document.getElementsByClassName('showAd').disabled = true
         document.getElementsByClassName('showAd').onclick = function() {
           admob.interstitial.show()
         }
       }, false);
-
       document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
-        // alert(JSON.stringify(event))
-      });
-
+        //alert(JSON.stringify(event))
+      })
       document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
-        // alert(JSON.stringify(event))
-      });
-
+        //alert(JSON.stringify(event))
+      })
       document.addEventListener('admob.interstitial.events.LOAD', function(event) {
-        // alert(JSON.stringify(event))
+        //alert(JSON.stringify(event))
         document.getElementsByClassName('showAd').disabled = false
-      });
-
+      })
       document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
-        // alert(JSON.stringify(event))
+        //alert(JSON.stringify(event))
         admob.interstitial.prepare()
-      });
+      })
     </script>
-
-    <title>Bíblia Sagrada NTLH</title>
+    <title>Bíblia Sagrada ACF</title>
 </head>
 
 <body>
@@ -88,7 +80,7 @@
 <template id="tabbar.html">
   <ons-page id="tabbar-page">
     <ons-toolbar id="tabbar_">
-        <div class="center"><center>Bíblia Sagrada NTLH</center></div>
+        <div class="center"><center>Bíblia Sagrada ACF</center></div>
       <div class="left">
         <ons-toolbar-button onclick="fn.toggleMenu()">
           <ons-icon style="color: #f5f5f5" icon="ion-navicon, material:md-menu"></ons-icon>
@@ -96,13 +88,13 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.8" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.17" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
       ons.getScriptPage().addEventListener('prechange', function(event) {
         if (event.target.matches('#appTabbar')) {
-              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada NTLH';
+              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada ACF';
         }
       });
     </script>
@@ -286,15 +278,10 @@
 
 <template id="home.html">
   <ons-page>
-    <p class="intro">A Nova Tradução na Linguagem de Hoje, abreviadamente chamada NTLH, é uma tradução da Bíblia em linguagem moderna e inteligível em Língua Portuguesa. Foi lançada no ano 2000 pela Sociedade Bíblica do Brasil.</p>
-
-    <p class="intro">A versão foi desenvolvida pela Comissão de Tradução da Sociedade Bíblica do Brasil, num processo que tomou 12 anos de pesquisas, buscando manter o texto com significado mais próximo aos textos originais – hebraico, aramaico e grego. A NTLH é uma revisão da Bíblia na Linguagem de Hoje, lançada em 1988. Porém, ela recebeu uma revisão tão profunda que é considerada pela própria SBB como uma nova tradução das Escrituras Sagradas.</p>
-
-    <p class="intro">Pela linguagem mais simples e coloquial, a NTLH é voltada às pessoas que ainda não tiveram ou que tiveram pouco contato com a leitura bíblica clássica. De modo que se tornou uma ferramenta de evangelização por possuir um texto mais claro e facilmente compreensível, por não primar pela linguagem clássica que geralmente norteia essas traduções. A nova versão, contudo, não utiliza gírias ou regionalismos, fator que, segundo a Comissão de Tradução, não permitiu que se perdesse o estilo bíblico.</p>
-
-    <p class="intro">Os princípios seguidos nesta revisão foram os mesmos que nortearam o trabalho da tradução na Linguagem de Hoje. A tradução de João Ferreira de Almeida e também outras boas traduções existentes em português seguiram os princípios da tradução de equivalência formal. Já a NTLH, norteou-se pelos princípios de tradução de equivalência funcional ou dinâmica.</p>
-
-    <p class="intro">De todo modo, é uma tradução bastante útil por aproximar o texto bíblico da linguagem geralmente falada pelas pessoas no dia a dia.</p>
+    <p class="intro">A Bíblia Almeida Corrigida Fiel (ACF) é uma tradução para a língua portuguesa baseada na versão de João Ferreira Annes de Almeida. A tradução Corrigida Fiel usou como base a Almeida Revista e Corrigida e tem a característica de basear-se exclusivamente no Texto Recebido (Textus Receptus) grego para o Novo Testamento e no Texto Massorético hebraico para o Antigo Testamento, que foram os mesmos textos usados por Almeida em sua tradução original.</p>
+    <p class="intro">O método de tradução utilizado é a equivalência formal, que procura manter as classes gramaticais do original para a tradução: um verbo traduzido por um verbo, um substantivo por um substantivo, e assim em diante.</p>
+    <p class="intro">A postura oficial da Sociedade Bíblica Trinitariana do Brasil, que produziu e publica esta tradução, é defendê-la como a tradução mais fiel em língua portuguesa aos textos que ela considera mais fidedignos aos originais advindo assim o termo "Fiel". Já a Sociedade Bíblica Trinitariana de língua inglesa (Trinitarian Bible Society), à qual a Sociedade Bíblica Trinitariana do Brasil está ligada, defende a versão da Bíblia King James como a mais fiel tradução da Bíblia na língua inglesa, sendo esta também traduzida a partir do Texto Recebido em grego e do Texto Massorético em hebraico. A Trinitarian Bible Society não é associada ao King-James-Only Movement internacional, e tem um ativo trabalho de tradução dos textos originais supracitados para diversas línguas através do globo.</p>
+    <p class="intro">A Almeida Corrigida Fiel foi publicada em 1994 e lançada uma revisão em 2007. No ano de 2011 uma nova edição foi publicada em consonância com o Novo Acordo Ortográfico que passou a vigorar nos países pertencentes à Comunidade dos Países de Língua Portuguesa.</p>
     <style>
       .intro {
         text-align: justify;
@@ -328,14 +315,14 @@
 
     <script>
       ons.getScriptPage().onInit = function () {
-        app.registraAcesso('ntlh/versiculosMarcados.html');
+        app.registraAcesso('acf/versiculosMarcados.html');
         admob.interstitial.show();
         $("#textoVersiculo").html('');
         this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
         var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
         if (lista_marcadores) {
           for(var i=0; i<lista_marcadores.length; i++) {
-            app.buscaVersiculo('ntlh',lista_marcadores[i]['livro']+"||"+lista_marcadores[i]['num_capitulo']+"."+(parseInt(lista_marcadores[i]['num_versiculo'])+0),"textoVersiculo"); 
+            app.buscaVersiculo('acf',lista_marcadores[i]['livro']+"||"+lista_marcadores[i]['num_capitulo']+"."+(parseInt(lista_marcadores[i]['num_versiculo'])+0),"textoVersiculo"); 
           }   
         }
       }
@@ -415,7 +402,7 @@
     <script>
         ons.getScriptPage().onInit = function () {
           admob.interstitial.show();
-          app.registraAcesso('ntlh/configuracao.html');
+          app.registraAcesso('acf/configuracao.html');
           modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
           $("#modo_noturno").attr("checked",modo_noturno);
           
@@ -488,7 +475,7 @@
     <script>
       ons.getScriptPage().onInit = function () {
         admob.interstitial.show();
-        app.registraAcesso('ntlh/palavraDia.html');
+        app.registraAcesso('acf/palavraDia.html');
         $("#textoVersiculo").html('');
         this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
         var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13','Nm||23.19','Js||21.45','Js||23.14','1Jo||2.25','Ez||36.26','1Jo||1.9','1Rs||8.56','Dt||28.9','Jl||2.32','Sl||145.13','2||Pe||1.4','Tg||1.12','Sl||138.4','2Co||7.1','Sl||119.50','2Pe||3.9','Gl||3.16','Jo||16.33','Mt||6.26','Sl||34.10','Mt||6.11','Sl||23.1','Sl||4.8','Is||40.31','Jo||14.27','Lc||12.15','Dt||31.6','Hb||13.6','Rm||8.28','Tg||1.5','Sl||37.4','Mt||17.20','Is||41.10'];
@@ -535,7 +522,7 @@
     <script>
         ons.getScriptPage().onInit = function () {
           admob.interstitial.show();
-          app.registraAcesso('ntlh/capitulosLidos.html');
+          app.registraAcesso('acf/capitulosLidos.html');
           $("#textoCapitulosLidos").html('');
           this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
           var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -607,7 +594,7 @@
     </div>
     <script>
         ons.getScriptPage().onInit = function () {
-          app.registraAcesso('ntlh/biblia.html');
+          app.registraAcesso('acf/biblia.html');
           this.querySelector('#biblia_ div.center').textContent = 'Bíblia Sagrada';
           var abriu_pesquisa_biblia = false
           $( "#botao_pesquisa_biblia" ).click(function() {
@@ -891,7 +878,7 @@
     <script>
         ons.getScriptPage().onInit = function () {
           admob.interstitial.show();
-          app.registraAcesso('ntlh/harpa.html');
+          app.registraAcesso('acf/harpa.html');
           fn.showDialog('modal-aguarde');
           app.listaHinario();
           var timeoutID = 0;
@@ -1159,7 +1146,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          app.registraAcesso('ntlh/antigoTestamento.html');
+          app.registraAcesso('acf/antigoTestamento.html');
           this.querySelector('#antigoTestamento_ div.center').textContent = 'Antigo Testamento';
         }
     </script>
@@ -1331,7 +1318,7 @@
     </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
-          app.registraAcesso('ntlh/novoTestamento.html');
+          app.registraAcesso('acf/novoTestamento.html');
           this.querySelector('#novoTestamento_ div.center').textContent = 'Novo Testamento';
         }
     </script>
@@ -1462,7 +1449,7 @@
           ons.getScriptPage().onInit = function () {
             var dados = this.data.title.split('||'); 
             var ultimoCap = dados[2];
-            app.registraAcesso('ntlh/textoLivro.html?livro='+dados[0]+'&cap='+dados[3]);
+            app.registraAcesso('acf/textoLivro.html?livro='+dados[0]+'&cap='+dados[3]);
             this.querySelector('#textoLivro_ div.center').textContent = dados[1]+' '+dados[3];
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
@@ -1524,7 +1511,7 @@
                 $("#controle_rolagem").css("display","none");
 
                 $("#atual").val(parseInt($("#atual").val())+1)
-                app.registraAcesso('ntlh/textoLivro.html?livro='+dados[0]+'&cap='+parseInt($("#atual").val()));
+                app.registraAcesso('acf/textoLivro.html?livro='+dados[0]+'&cap='+parseInt($("#atual").val()));
                 //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                 fn.showDialog('modal-aguarde');
                 var versaoId = window.localStorage.getItem('versao-biblia');
@@ -1545,7 +1532,7 @@
 
                 $("#controle_rolagem").css("display","none");
                 $("#atual").val(parseInt($("#atual").val())-1)
-                app.registraAcesso('ntlh/textoLivro.html?livro='+dados[0]+'&cap='+parseInt($("#atual").val()));
+                app.registraAcesso('acf/textoLivro.html?livro='+dados[0]+'&cap='+parseInt($("#atual").val()));
                 //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                 fn.showDialog('modal-aguarde');
                 var versaoId = window.localStorage.getItem('versao-biblia');
@@ -1566,7 +1553,7 @@
                 var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
-              text += 'Versão: Bíblia Sagrada NTLH\nLink: https://bit.ly/3g176iI';
+              text += 'Versão: Bíblia Sagrada ACF\nLink: http://bit.ly/310ik1b';
               cordova.plugins.clipboard.copy(text);
               cordova.plugins.clipboard.paste(function (text) { 
                 ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
@@ -1584,7 +1571,7 @@
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada NTLH\nLink: https://bit.ly/3g176iI';
+              text += 'Versão: Bíblia Sagrada ACF\nLink: http://bit.ly/310ik1b';
               window.plugins.socialsharing.shareViaWhatsApp(
                 text, 
                 null, 
@@ -1608,7 +1595,7 @@
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada NTLH\nLink: https://bit.ly/3g176iI';
+              text += 'Versão: Bíblia Sagrada ACF\nLink: http://bit.ly/310ik1b';
               window.plugins.socialsharing.shareViaInstagram(
                 text, 
                 null, 
@@ -1631,7 +1618,7 @@
                 text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
               });
 
-              text += 'Versão: Bíblia Sagrada NTLH\nLink: https://bit.ly/3g176iI';
+              text += 'Versão: Bíblia Sagrada ACF\nLink: http://bit.ly/310ik1b';
               window.plugins.socialsharing.shareViaTwitter(text);
             });
           }
@@ -1656,7 +1643,7 @@
         ons.getScriptPage().onInit = function () {
           admob.interstitial.show();
           var dados = this.data.title.split('||'); 
-          app.registraAcesso('ntlh/conteudoHarpa.html?livro='+dados[0]);
+          app.registraAcesso('acf/conteudoHarpa.html?livro='+dados[0]);
           this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
           $("#conteudoHarpa").html('');
           app.buscaHinario(dados[0]);
@@ -1685,7 +1672,7 @@
     <script>
       ons.getScriptPage().onInit = function () {
         admob.interstitial.show();
-        app.registraAcesso('ntlh/notificacoes.html');
+        app.registraAcesso('acf/notificacoes.html');
         this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
 
 
@@ -1785,7 +1772,7 @@
         </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        app.registraAcesso('ntlh/notificacao.html');
+        app.registraAcesso('acf/notificacao.html');
         var dados = this.data.title.split('||'); 
         this.querySelector('#notificacao_ div.center').textContent = dados[0];
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
@@ -1922,6 +1909,13 @@
     <div>
       <ons-list-item tappable>
         <label class="left">
+          <ons-radio class="versao" input-id="acf" value="acf"></ons-radio>
+        </label>
+        <label for="acf" class="center">Bíblia Sagrada ACF</label>
+      </ons-list-item>
+
+      <ons-list-item tappable>
+        <label class="left">
           <ons-radio class="versao" input-id="aa" value="aa"></ons-radio>
         </label>
         <label for="aa" class="center">Bíblia Sagrada AA</label>
@@ -1932,13 +1926,6 @@
           <ons-radio class="versao" input-id="nvi" value="nvi"></ons-radio>
         </label>
         <label for="nvi" class="center">Bíblia Sagrada NVI</label>
-      </ons-list-item>
-
-      <ons-list-item tappable>
-        <label class="left">
-          <ons-radio class="versao" input-id="acf" value="acf"></ons-radio>
-        </label>
-        <label for="acf" class="center">Bíblia Sagrada ACF</label>
       </ons-list-item>
 
       <ons-list-item tappable modifier="longdivider">
@@ -1979,10 +1966,10 @@
     <script>
       ons.getScriptPage().onInit = function () {
         admob.interstitial.show();
-        app.registraAcesso('ntlh/versoes.html');
+        app.registraAcesso('acf/versoes.html');
         this.querySelector('#versoes_ div.center').textContent = 'Versões';
         if (!window.localStorage.getItem('versao-biblia')) {
-          versaoId = 'ntlh';
+          versaoId = 'acf';
         }
         else{
           var versaoId = window.localStorage.getItem('versao-biblia');

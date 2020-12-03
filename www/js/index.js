@@ -17,7 +17,7 @@ var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
 localStorage.setItem("modo-noturno", modo_noturno);
 
 if (!window.localStorage.getItem('versao-biblia')) {
-  localStorage.setItem("versao-biblia", 'ntlh'); 
+  localStorage.setItem("versao-biblia", 'acf'); 
 }
 var versaoId = window.localStorage.getItem('versao-biblia');
 
@@ -95,7 +95,7 @@ var app = {
   },
   oneSignal: function() {
     window.plugins.OneSignal
-    .startInit("548c5743-048c-44c8-b307-461400e61857")   
+    .startInit("475c4a8f-b37a-4cf0-87dd-3276ede039b6")   
     .handleNotificationOpened(function(jsonData) {
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
       ons.notification.alert(
@@ -169,7 +169,7 @@ var app = {
     modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
 
     $("#textoLivro").html('');
-    var versaoId = versaoId || "ntlh";
+    var versaoId = versaoId || "acf";
     var selector = this;
     var texts = [];
 
@@ -383,7 +383,7 @@ var app = {
   },
   buscaVersiculo: function(versaoId,livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
-    var versaoId = versaoId || "ntlh";
+    var versaoId = versaoId || "acf";
     var selector = this;
     var texts = [];
     var dados0 = livro_capitulo_versiculo.split('||');
@@ -443,7 +443,7 @@ var app = {
     var versiculo = (dados1[1]-1);
     $.ajax({
       type : "GET",
-      url : "js/ntlh.json",
+      url : "js/acf.json",
       dataType : "json",
       success : function(data){
         $(selector).each(function(){
@@ -593,7 +593,7 @@ var app = {
     }
   },
   pesquisaBiblia: function(term){
-    var versaoId = versaoId || "ntlh";
+    var versaoId = versaoId || "acf";
 
     if (term != '') {
       term = term.toLowerCase();
@@ -695,7 +695,7 @@ var app = {
           'uid': uid,
           'datacadastro': this.dateTime(),
           'ultimoacesso': this.dateTime(),
-          'app': 'ntlh',
+          'app': 'acf',
         },
         error: function(e) {
         },
@@ -720,7 +720,7 @@ var app = {
   buscaNotificacoes: function(){
     var uid = window.localStorage.getItem('uid');
     if (uid) {
-      firebase.database().ref('notificacoes').child(uid).child('ntlh').on('value', (snapshot) => {
+      firebase.database().ref('notificacoes').child(uid).child('acf').on('value', (snapshot) => {
         //localStorage.removeItem("lista-notificacoes");
         var notificacoes = snapshot.val();
         if (notificacoes) {
@@ -735,7 +735,7 @@ var app = {
             lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao, link: link});
             localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
           });
-          firebase.database().ref('notificacoes').child(uid).child('ntlh').remove();
+          firebase.database().ref('notificacoes').child(uid).child('acf').remove();
         }
       });
     }

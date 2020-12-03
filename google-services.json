@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "452663083474",
+    "firebase_url": "https://biblia-sagrada-acf.firebaseio.com",
+    "project_id": "biblia-sagrada-acf",
+    "storage_bucket": "biblia-sagrada-acf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452663083474:android:a46a56c7fd5c44917f080b",
+        "android_client_info": {
+          "package_name": "com.phonegap.eutenhodoisreais"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452663083474-gpf2i084oofrjset43ag0ajl848bsi4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYRNL-GO9SVABNZAz7A_P79P7PCL3s8uA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452663083474-gpf2i084oofrjset43ag0ajl848bsi4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-7091486462236476~1364015655"
+    }
+  ],
+  "configuration_version": "1"
+}
