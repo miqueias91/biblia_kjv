@@ -1,7 +1,7 @@
 {
-  "name": "com.phonegap.eutenhodoisreais",
-  "version": "1.0.17",
-  "displayName": "Bíblia Sagrada ACF",
+  "name": "com.phonegap.iindicate",
+  "version": "1.0.6",
+  "displayName": "Bíblia Sagrada NTLH",
   "cordova": {
     "platforms": [
       "android"
@@ -13,12 +13,12 @@
       "cordova-plugin-dialogs": {},
       "cordova-plugin-admobpro": {
         "PLAY_SERVICES_VERSION": "16.0.0",
-        "ADMOB_APP_ID": "ca-app-pub-7091486462236476~1364015655"
+        "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4229833281"
       },
       "cordova-admob-sdk": {},
       "cordova-clipboard": {},
       "cordova-plugin-admob-free": {
-        "ADMOB_APP_ID": "ca-app-pub-7091486462236476~1364015655"
+        "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4229833281"
       },
       "cordova-plugin-console": {},
       "cordova-plugin-x-socialsharing": {
