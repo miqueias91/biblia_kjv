@@ -60,7 +60,7 @@
         <variable name="FCM_VERSION" value="11.6.2" />
     </plugin>
     <plugin name="cordova-plugin-admob-free" spec="^0.27.0">
-        <variable name="ADMOB_APP_ID" value="ca-app-pub-7091486462236476~1364015655" />
+        <variable name="ADMOB_APP_ID" value="ca-app-pub-7091486462236476~4229833281" />
     </plugin>
     <plugin name="cordova-plugin-x-socialsharing" spec="5.6.4" />
     <plugin name="cordova-plugin-insomnia" spec="https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git" />
