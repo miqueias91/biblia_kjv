@@ -1,2 +1,2 @@
-# biblia_kjv
-The Authorized Version, or King James Version, quickly became the standard for English-speaking Protestants.
+# biblia_ntlh
+A Nova Tradução na Linguagem de Hoje, abreviadamente chamada NTLH, é uma tradução da Bíblia em linguagem moderna e inteligível em Língua Portuguesa.
