@@ -1,38 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
   {
-    "id": "cordova-plugin-splashscreen.SplashScreen",
-    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-    "pluginId": "cordova-plugin-splashscreen",
-    "clobbers": [
-      "navigator.splashscreen"
-    ]
-  },
-  {
-    "id": "cordova-plugin-statusbar.statusbar",
-    "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-    "pluginId": "cordova-plugin-statusbar",
-    "clobbers": [
-      "window.StatusBar"
-    ]
-  },
-  {
-    "id": "cordova-plugin-dialogs.notification",
-    "file": "plugins/cordova-plugin-dialogs/www/notification.js",
-    "pluginId": "cordova-plugin-dialogs",
-    "merges": [
-      "navigator.notification"
-    ]
-  },
-  {
-    "id": "cordova-plugin-dialogs.notification_android",
-    "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
-    "pluginId": "cordova-plugin-dialogs",
-    "merges": [
-      "navigator.notification"
-    ]
-  },
-  {
     "id": "cordova-clipboard.Clipboard",
     "file": "plugins/cordova-clipboard/www/clipboard.js",
     "pluginId": "cordova-clipboard",
@@ -60,36 +28,15 @@ module.exports = [
       "AdMob",
       "plugins.AdMob"
     ]
-  },
-  {
-    "id": "es6-promise-plugin.Promise",
-    "file": "plugins/es6-promise-plugin/www/promise.js",
-    "pluginId": "es6-promise-plugin",
-    "runs": true
-  },
-  {
-    "id": "cordova-plugin-x-socialsharing.SocialSharing",
-    "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
-    "pluginId": "cordova-plugin-x-socialsharing",
-    "clobbers": [
-      "window.plugins.socialsharing"
-    ]
   }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-  "cordova-plugin-splashscreen": "6.0.0",
-  "cordova-plugin-whitelist": "1.2.2",
-  "cordova-plugin-statusbar": "2.1.3",
-  "cordova-plugin-dialogs": "2.0.2",
+  "cordova-admob-sdk": "0.24.1",
   "cordova-clipboard": "1.3.0",
   "cordova-promise-polyfill": "0.0.2",
-  "cordova-admob-sdk": "0.24.1",
-  "cordova-plugin-admob-free": "0.27.0",
-  "cordova-plugin-console": "1.0.7",
-  "es6-promise-plugin": "4.2.2",
-  "cordova-plugin-x-socialsharing": "5.6.4"
+  "cordova-plugin-admob-free": "0.27.0"
 };
 // BOTTOM OF METADATA
 });
