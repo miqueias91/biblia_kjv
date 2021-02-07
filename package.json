@@ -1,6 +1,6 @@
 {
   "name": "com.phonegap.iindicate",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "displayName": "Bíblia Sagrada NTLH",
   "cordova": {
     "platforms": [],
