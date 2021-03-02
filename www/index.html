@@ -562,36 +562,36 @@
 
 <template id="minhasInformacoes.html">
   <ons-page>
-        <ons-toolbar id="minhasInformacoes_">
-            <div class="left">
-                <ons-back-button>Minhas Informações</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
-  <div style="text-align: center; margin-top: 30px;">
-    <p><ons-input style="width: 90%;margin-bottom: 20px;" input-id="nome" placeholder="Seu Nome:" modifier="underbar" float></ons-input></p>
-    <p><ons-input style="width: 90%;margin-bottom: 20px;" input-id="usuario" placeholder="Seu Usuário:" modifier="underbar" float></ons-input></p>
-    <p><ons-input style="width: 90%;margin-bottom: 20px;" input-id="email" placeholder="Seu E-mail:" modifier="underbar" type="email" float></ons-input></p>
-    <p><ons-input style="width: 90%;margin-bottom: 20px;" input-id="senha" placeholder="Sua Senha:" modifier="underbar" type="password" float></ons-input></p>
-    <p><ons-input style="width: 90%;margin-bottom: 20px;" input-id="confirmar_senha" placeholder="Confirmar Senha:" modifier="underbar" type="password" float></ons-input></p>
-    <br>
-    <br>
-    <section style="margin: 16px">
-      <ons-button modifier="large" class="button-margin" id="salvar_minhas_informacoes">Ok</ons-button>
-    </section>
-  </div>
+    <ons-toolbar id="minhasInformacoes_">
+        <div class="left">
+            <ons-back-button>Minhas Informações</ons-back-button>
+        </div>
+        <div class="center"></div>
+    </ons-toolbar>
+    <div style="text-align: center; margin-top: 30px;">
+      <p class="intro">Mantenha seus dados sempre atualizados.</p>
+      <br><br>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="nome" placeholder="Seu Nome:" modifier="underbar" type="text" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="usuario" placeholder="Seu Usuário:" modifier="underbar" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="email" placeholder="Seu E-mail:" modifier="underbar" type="email" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="senha" placeholder="Sua Senha:" modifier="underbar" type="password" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="confirmar_senha" placeholder="Confirmar Senha:" modifier="underbar" type="password" float></ons-input></p>
+      <br>
+      <br>
+      <section style="margin: 16px">
+        <ons-button modifier="large" class="button-margin" id="salvar_minhas_informacoes">Ok</ons-button>
+      </section>
+    </div>
     <script>
       ons.getScriptPage().onInit = function () {
         // admob.interstitial.show();
-        var usuario_ = localStorage.getItem("usuario") ? localStorage.getItem("usuario") : '';
-        var senha_ = localStorage.getItem("senha") ? localStorage.getItem("senha") : '';
         var nome_ = localStorage.getItem("nome") ? localStorage.getItem("nome") : '';
+        var usuario_ = localStorage.getItem("usuario") ? localStorage.getItem("usuario") : '';
         var email_ = localStorage.getItem("email") ? localStorage.getItem("email") : '';
-
+        
         $("#nome").val(nome_);
         $("#usuario").val(usuario_);
         $("#email").val(email_);
-        $("#senha").val(senha_);
 
         app.registraAcesso('ntlh/minhasInformacoes.html');
         this.querySelector('#minhasInformacoes_ div.center').textContent = 'Minhas Informações';

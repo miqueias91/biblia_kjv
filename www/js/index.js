@@ -832,7 +832,6 @@ var app = {
           }
           else{
             localStorage.setItem("usuario", usuario);
-            localStorage.setItem("senha", senha);
             localStorage.setItem("nome", nome);
             localStorage.setItem("email", email);
 
@@ -859,7 +858,6 @@ var app = {
         success: function(a) {
           if (a) {
             localStorage.setItem("usuario", a['usuario']);
-            localStorage.setItem("senha", a['senha']);
             localStorage.setItem("nome", a['nome']);
             localStorage.setItem("email", a['email']);
           }
