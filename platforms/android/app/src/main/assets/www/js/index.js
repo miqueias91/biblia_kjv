@@ -846,7 +846,6 @@ var app = {
   },
   buscaDadosUsuario: function() {
     var uid = window.localStorage.getItem('uid');
-    uid = 'CMC37q0vIMZclj1JH4N4zWgpCcJ2'
     if (uid) {
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/buscaDadosUsuario.php",
