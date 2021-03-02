@@ -98,6 +98,7 @@ var app = {
     this.getIds();
     this.buscaNotificacoes();
     this.buscaDadosUsuario();
+    alert('index')
   },
   oneSignal: function() {
     window.plugins.OneSignal

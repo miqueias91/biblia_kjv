@@ -20,6 +20,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
     <script type="text/javascript" src="js/firebase.js"></script>
+    <script src="js/index.js"></script>
+
     <script type="text/javascript">
       var admobid = {}
       if (/(android)/i.test(navigator.userAgent)) {
@@ -31,6 +33,7 @@
 
       document.addEventListener('deviceready', function () {
         this.buscaDadosUsuario();
+        alert('admob')
         window.plugins.insomnia.keepAwake();
         admob.banner.config({ 
           id: admobid.banner, 
@@ -2630,7 +2633,6 @@
   </ons-page>
 </template>
 
-<script src="js/index.js"></script>
 
 </body>
 
