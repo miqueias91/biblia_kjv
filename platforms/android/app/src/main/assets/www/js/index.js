@@ -14,10 +14,7 @@ var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
 var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
 localStorage.setItem("fonte-versiculo", fonte_versiculo);
 var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
-var dados_cadastrado = JSON.parse(localStorage.getItem('dados-cadastrado') || false);
 localStorage.setItem("modo-noturno", modo_noturno);
-localStorage.setItem("dados-cadastrado", dados_cadastrado);
-
 if (!window.localStorage.getItem('lista-versiculos')) {
   localStorage.setItem("lista-versiculos", '[]'); 
 }
@@ -79,6 +76,8 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
+
+
     if (JSON.parse(ultimo_capitulo_lido)) {
       fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
     }
@@ -98,6 +97,7 @@ var app = {
     this.oneSignal();
     this.getIds();
     this.buscaNotificacoes();
+    this.buscaDadosUsuario();
   },
   oneSignal: function() {
     window.plugins.OneSignal
@@ -800,6 +800,70 @@ var app = {
         },
       });
     }*/
+  },
+  verificaExistenciaUsuario: function(usuario, senha, nome, email) {
+    var uid = window.localStorage.getItem('uid');
+    if (usuario != "") {
+      fn.showDialog('modal-aguarde');
+      $.ajax({
+        url: "https://www.innovatesoft.com.br/webservice/app/verificaExistenciaUsuario.php?usuario="+usuario,
+        dataType: 'json',
+        type: 'POST',
+        data: {
+          'nome': nome,
+          'email': email,
+          'senha': senha,
+          'uid': uid,
+        },
+        error: function(e) {
+          var timeoutID = 0;
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+        },
+        success: function(a) {
+          var timeoutID = 0;
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+          if (a == true) {
+            ons.notification.alert(
+              'Escolha outro usuário!',
+              {title: 'Mensagem'}
+            );
+          }
+          else{
+            localStorage.setItem("usuario", usuario);
+            localStorage.setItem("nome", nome);
+            localStorage.setItem("email", email);
+
+            ons.notification.alert(
+              'Dados cadastrados com sucesso!',
+              {title: 'Mensagem'}
+            );
+          }
+        },
+      });
+    }
+  },
+  buscaDadosUsuario: function() {
+    var uid = window.localStorage.getItem('uid');
+    if (uid) {
+      $.ajax({
+        url: "https://www.innovatesoft.com.br/webservice/app/buscaDadosUsuario.php",
+        dataType: 'json',
+        type: 'POST',
+        data: {
+          'uid': uid,
+        },
+  
+        success: function(a) {
+          if (a) {
+            localStorage.setItem("usuario", a['usuario']);
+            localStorage.setItem("nome", a['nome']);
+            localStorage.setItem("email", a['email']);
+          }
+        },
+      });
+    }
   },
   buscaNotificacoes: function(){
     var uid = window.localStorage.getItem('uid');

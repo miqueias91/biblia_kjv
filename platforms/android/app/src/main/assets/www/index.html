@@ -562,23 +562,84 @@
 
 <template id="minhasInformacoes.html">
   <ons-page>
-        <ons-toolbar id="minhasInformacoes_">
-            <div class="left">
-                <ons-back-button>Minhas Informações</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
-  <div style="text-align: center; margin-top: 30px;">
-    <p><ons-input input-id="nome" placeholder="Seu Nome:" modifier="underbar" float></ons-input></p>
-    <p><ons-input input-id="usuario" placeholder="Seu Usuário:" modifier="underbar" float></ons-input></p>
-    <p><ons-input input-id="usuario" placeholder="Seu E-mail:" modifier="underbar" type="email" float></ons-input></p>
-    <p><ons-input input-id="usuario" placeholder="Sua Senha:" modifier="underbar" type="password" float></ons-input></p>
-  </div>
+    <ons-toolbar id="minhasInformacoes_">
+        <div class="left">
+            <ons-back-button>Minhas Informações</ons-back-button>
+        </div>
+        <div class="center"></div>
+    </ons-toolbar>
+    <div style="text-align: center; margin-top: 30px;">
+      <p class="intro">Mantenha seus dados sempre atualizados.</p>
+      <br><br>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="token" placeholder="Token:" modifier="underbar" type="text" float disabled></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="nome" placeholder="Seu Nome:" modifier="underbar" type="text" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="usuario" placeholder="Seu Usuário:" modifier="underbar" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="email" placeholder="Seu E-mail:" modifier="underbar" type="email" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="senha" placeholder="Sua Senha:" modifier="underbar" type="password" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="confirmar_senha" placeholder="Confirmar Senha:" modifier="underbar" type="password" float></ons-input></p>
+      <br>
+      <br>
+      <section style="margin: 16px">
+        <ons-button modifier="large" class="button-margin" id="salvar_minhas_informacoes">Ok</ons-button>
+      </section>
+    </div>
     <script>
       ons.getScriptPage().onInit = function () {
         // admob.interstitial.show();
+        var token_ = localStorage.getItem("uid") ? localStorage.getItem("uid") : '';
+        var nome_ = localStorage.getItem("nome") ? localStorage.getItem("nome") : '';
+        var usuario_ = localStorage.getItem("usuario") ? localStorage.getItem("usuario") : '';
+        var email_ = localStorage.getItem("email") ? localStorage.getItem("email") : '';
+        
+        $("#token").val(token_);
+        $("#nome").val(nome_);
+        $("#usuario").val(usuario_);
+        $("#email").val(email_);
+
         app.registraAcesso('ntlh/minhasInformacoes.html');
         this.querySelector('#minhasInformacoes_ div.center').textContent = 'Minhas Informações';
+
+          $( "#salvar_minhas_informacoes" ).click(function() {
+            var nome = $("#nome").val();
+            var usuario = $("#usuario").val();
+            var email = $("#email").val();
+            var senha = $("#senha").val();
+            var confirmar_senha = $("#confirmar_senha").val();
+
+            if (senha != confirmar_senha) {
+              ons.notification.alert(
+                'As senhas não conferem!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (nome == "") {
+              ons.notification.alert(
+                'Informe o seu nome!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (usuario == "") {
+              ons.notification.alert(
+                'Informe um usuário!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (email == "") {
+              ons.notification.alert(
+                'Informe seu e-mail!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (senha == "") {
+              ons.notification.alert(
+                'Informe seu e-mail!',
+                {title: 'Mensagem'}
+              );
+            }
+            else{
+              app.verificaExistenciaUsuario(usuario, senha, nome, email);
+            }
+          });
  
       }
     </script>

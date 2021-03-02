@@ -571,6 +571,7 @@
     <div style="text-align: center; margin-top: 30px;">
       <p class="intro">Mantenha seus dados sempre atualizados.</p>
       <br><br>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="token" placeholder="Token:" modifier="underbar" type="text" float disabled></ons-input></p>
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="nome" placeholder="Seu Nome:" modifier="underbar" type="text" float></ons-input></p>
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="usuario" placeholder="Seu Usuário:" modifier="underbar" float></ons-input></p>
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="email" placeholder="Seu E-mail:" modifier="underbar" type="email" float></ons-input></p>
@@ -585,10 +586,12 @@
     <script>
       ons.getScriptPage().onInit = function () {
         // admob.interstitial.show();
+        var token_ = localStorage.getItem("uid") ? localStorage.getItem("uid") : '';
         var nome_ = localStorage.getItem("nome") ? localStorage.getItem("nome") : '';
         var usuario_ = localStorage.getItem("usuario") ? localStorage.getItem("usuario") : '';
         var email_ = localStorage.getItem("email") ? localStorage.getItem("email") : '';
         
+        $("#token").val(token_);
         $("#nome").val(nome_);
         $("#usuario").val(usuario_);
         $("#email").val(email_);
