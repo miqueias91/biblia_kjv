@@ -577,14 +577,66 @@
     <br>
     <br>
     <section style="margin: 16px">
-      <ons-button modifier="large" class="button-margin">Ok</ons-button>
+      <ons-button modifier="large" class="button-margin" id="salvar_minhas_informacoes">Ok</ons-button>
     </section>
   </div>
     <script>
       ons.getScriptPage().onInit = function () {
         // admob.interstitial.show();
+        var usuario_ = localStorage.getItem("usuario") ? localStorage.getItem("usuario") : '';
+        var senha_ = localStorage.getItem("senha") ? localStorage.getItem("senha") : '';
+        var nome_ = localStorage.getItem("nome") ? localStorage.getItem("nome") : '';
+        var email_ = localStorage.getItem("email") ? localStorage.getItem("email") : '';
+
+        $("#nome").val(nome_);
+        $("#usuario").val(usuario_);
+        $("#email").val(email_);
+        $("#senha").val(senha_);
+
         app.registraAcesso('ntlh/minhasInformacoes.html');
         this.querySelector('#minhasInformacoes_ div.center').textContent = 'Minhas Informações';
+
+          $( "#salvar_minhas_informacoes" ).click(function() {
+            var nome = $("#nome").val();
+            var usuario = $("#usuario").val();
+            var email = $("#email").val();
+            var senha = $("#senha").val();
+            var confirmar_senha = $("#confirmar_senha").val();
+
+            if (senha != confirmar_senha) {
+              ons.notification.alert(
+                'As senhas não conferem!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (nome == "") {
+              ons.notification.alert(
+                'Informe o seu nome!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (usuario == "") {
+              ons.notification.alert(
+                'Informe um usuário!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (email == "") {
+              ons.notification.alert(
+                'Informe seu e-mail!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (senha == "") {
+              ons.notification.alert(
+                'Informe seu e-mail!',
+                {title: 'Mensagem'}
+              );
+            }
+            else{
+              app.verificaExistenciaUsuario(usuario, senha, nome, email);
+            }
+          });
  
       }
     </script>

@@ -14,9 +14,7 @@ var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
 var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
 localStorage.setItem("fonte-versiculo", fonte_versiculo);
 var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
-var dados_cadastrado = JSON.parse(localStorage.getItem('dados-cadastrado') || false);
 localStorage.setItem("modo-noturno", modo_noturno);
-localStorage.setItem("dados-cadastrado", dados_cadastrado);
 
 if (!window.localStorage.getItem('lista-versiculos')) {
   localStorage.setItem("lista-versiculos", '[]'); 
@@ -800,6 +798,50 @@ var app = {
         },
       });
     }*/
+  },
+  verificaExistenciaUsuario: function(usuario, senha, nome, email) {
+    var uid = window.localStorage.getItem('uid');
+    if (usuario != "") {
+      fn.showDialog('modal-aguarde');
+      $.ajax({
+        url: "https://www.innovatesoft.com.br/webservice/app/verificaExistenciaUsuario.php?usuario="+usuario,
+        dataType: 'json',
+        type: 'POST',
+        data: {
+          'nome': nome,
+          'email': email,
+          'senha': senha,
+          'uid': uid,
+        },
+        error: function(e) {
+          var timeoutID = 0;
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+        },
+        success: function(a) {
+          var timeoutID = 0;
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+          if (a == true) {
+            ons.notification.alert(
+              'Escolha outro usuário!',
+              {title: 'Mensagem'}
+            );
+          }
+          else{
+            localStorage.setItem("usuario", usuario);
+            localStorage.setItem("senha", senha);
+            localStorage.setItem("nome", nome);
+            localStorage.setItem("email", email);
+
+            ons.notification.alert(
+              'Dados cadastrados com sucesso!',
+              {title: 'Mensagem'}
+            );
+          }
+        },
+      });
+    }
   },
   buscaNotificacoes: function(){
     var uid = window.localStorage.getItem('uid');
