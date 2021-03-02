@@ -18,6 +18,7 @@ localStorage.setItem("modo-noturno", modo_noturno);
 if (!window.localStorage.getItem('lista-versiculos')) {
   localStorage.setItem("lista-versiculos", '[]'); 
 }
+localStorage.setItem("versao_pro",false);
 
 if (!window.localStorage.getItem('versao-biblia')) {
   localStorage.setItem("versao-biblia", 'ntlh'); 
@@ -76,7 +77,6 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
-
 
     if (JSON.parse(ultimo_capitulo_lido)) {
       fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
@@ -846,6 +846,7 @@ var app = {
   },
   buscaDadosUsuario: function() {
     var uid = window.localStorage.getItem('uid');
+    uid = 'CMC37q0vIMZclj1JH4N4zWgpCcJ2'
     if (uid) {
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/buscaDadosUsuario.php",
@@ -857,9 +858,11 @@ var app = {
   
         success: function(a) {
           if (a) {
+            console.log(a)
             localStorage.setItem("usuario", a['usuario']);
             localStorage.setItem("nome", a['nome']);
             localStorage.setItem("email", a['email']);
+            localStorage.setItem("versao_pro", a['final_versao_pro']);
           }
         },
       });

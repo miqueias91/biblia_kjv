@@ -30,20 +30,27 @@
       }
 
       document.addEventListener('deviceready', function () {
+        this.buscaDadosUsuario();
         window.plugins.insomnia.keepAwake();
         admob.banner.config({ 
           id: admobid.banner, 
           isTesting: false, 
           autoShow: true, 
         })
-        admob.banner.prepare()
+
+        if (!localStorage.getItem("versao_pro")) {
+          admob.banner.prepare()
+        }
         
         admob.interstitial.config({
           id: admobid.interstitial,
           isTesting: false,
           autoShow: false,
         })
-        admob.interstitial.prepare()
+
+        if (!localStorage.getItem("versao_pro")) {
+          admob.interstitial.prepare()
+        }
 
         document.getElementsByClassName('showAd').disabled = true
         document.getElementsByClassName('showAd').onclick = function() {
@@ -343,7 +350,9 @@
     <script>
       ons.getScriptPage().onInit = function () {
         app.registraAcesso('ntlh/versiculosMarcados.html');
-        admob.interstitial.show();
+        if (!localStorage.getItem("versao_pro")) {
+          admob.interstitial.show();
+        }
         $("#textoVersiculo").html('');
         this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
         var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
@@ -527,7 +536,9 @@
 
     <script>
       ons.getScriptPage().onInit = function () {
-        admob.interstitial.show();
+        if (!localStorage.getItem("versao_pro")) {
+          admob.interstitial.show();
+        }
         app.registraAcesso('ntlh/palavraDia.html');
         $("#textoVersiculo").html('');
         this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
@@ -569,7 +580,7 @@
         <div class="center"></div>
     </ons-toolbar>
     <div style="text-align: center; margin-top: 30px;">
-      <p class="intro">Mantenha seus dados sempre atualizados.</p>
+      <p class="intro">Para sua segurança sempre mantenha seus dados atualizados.</p>
       <br><br>
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="token" placeholder="Token:" modifier="underbar" type="text" float disabled></ons-input></p>
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="nome" placeholder="Seu Nome:" modifier="underbar" type="text" float></ons-input></p>
@@ -632,7 +643,7 @@
             }
             else if (senha == "") {
               ons.notification.alert(
-                'Informe seu e-mail!',
+                'Informe uma senha!',
                 {title: 'Mensagem'}
               );
             }
@@ -681,7 +692,9 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          if (!localStorage.getItem("versao_pro")) {
+            admob.interstitial.show();
+          }
           app.registraAcesso('ntlh/capitulosLidos.html');
           $("#textoCapitulosLidos").html('');
           this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
@@ -1219,7 +1232,9 @@
         </div>
         <script>
           ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            if (!localStorage.getItem("versao_pro")) {
+              admob.interstitial.show();
+            }
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1773,7 +1788,9 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          if (!localStorage.getItem("versao_pro")) {
+            admob.interstitial.show();
+          }
           app.registraAcesso('ntlh/harpa.html');
           fn.showDialog('modal-aguarde');
           app.listaHinario();
@@ -1837,7 +1854,9 @@
         <div id='conteudoHarpa'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          if (!localStorage.getItem("versao_pro")) {
+            admob.interstitial.show();
+          }
           var dados = this.data.title.split('||'); 
           app.registraAcesso('ntlh/conteudoHarpa.html?livro='+dados[0]);
           this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
@@ -2159,7 +2178,9 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          if (!localStorage.getItem("versao_pro")) {
+            admob.interstitial.show();
+          }
           app.registraAcesso('ntlh/cantor.html');
           fn.showDialog('modal-aguarde');
           app.listaCantor();
@@ -2223,7 +2244,9 @@
         <div id='conteudoCantor'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          if (!localStorage.getItem("versao_pro")) {
+            admob.interstitial.show();
+          }
           var dados = this.data.title.split('||'); 
           app.registraAcesso('ntlh/conteudoCantor.html?livro='+dados[0]);
           this.querySelector('#conteudoCantor_ div.center').textContent = dados[0]+' - '+dados[1];
@@ -2253,7 +2276,9 @@
         </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        admob.interstitial.show();
+        if (!localStorage.getItem("versao_pro")) {
+          admob.interstitial.show();
+        }
         app.registraAcesso('ntlh/notificacoes.html');
         this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
 
@@ -2548,7 +2573,9 @@
     </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        admob.interstitial.show();
+        if (!localStorage.getItem("versao_pro")) {
+          admob.interstitial.show();
+        }
         app.registraAcesso('ntlh/versoes.html');
         this.querySelector('#versoes_ div.center').textContent = 'Versões';
         if (!window.localStorage.getItem('versao-biblia')) {
