@@ -128,13 +128,5 @@
       "ANDROID_SUPPORT_V13_VERSION": "27.+",
       "FCM_VERSION": "11.6.2"
     }
-  },
-  "cordova-plugin-inapppurchase": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-inapppurchase"
-    },
-    "is_top_level": true,
-    "variables": {}
   }
 }

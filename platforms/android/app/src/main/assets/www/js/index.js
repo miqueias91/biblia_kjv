@@ -14,7 +14,9 @@ var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
 var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
 localStorage.setItem("fonte-versiculo", fonte_versiculo);
 var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
+var dados_cadastrado = JSON.parse(localStorage.getItem('dados-cadastrado') || false);
 localStorage.setItem("modo-noturno", modo_noturno);
+localStorage.setItem("dados-cadastrado", dados_cadastrado);
 
 if (!window.localStorage.getItem('lista-versiculos')) {
   localStorage.setItem("lista-versiculos", '[]'); 
