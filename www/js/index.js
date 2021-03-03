@@ -889,7 +889,7 @@ var app = {
             window.localStorage.setItem("nome", a['nome']);
             window.localStorage.setItem("email", a['email']);
             if (a['final_versao_pro'] == null) {
-              a['final_versao_pro'] = false;
+              a['final_versao_pro'] = 'EXIBIR_ANUNCIO';
             }
             window.localStorage.setItem("versao_pro", a['final_versao_pro']);
             alert('entrou no buscaDadosUsuario: '+a['final_versao_pro'])
@@ -931,7 +931,7 @@ var app = {
       autoShow: true, 
     })
 
-    if (!window.localStorage.getItem("versao_pro")) {
+    if (window.localStorage.getItem("versao_pro") === 'EXIBIR_ANUNCIO') {
       admob.banner.prepare()
     }
     
@@ -941,7 +941,7 @@ var app = {
       autoShow: false,
     })
 
-    if (!window.localStorage.getItem("versao_pro")) {
+    if (window.localStorage.getItem("versao_pro") === 'EXIBIR_ANUNCIO') {
       admob.interstitial.prepare()
     }
 
