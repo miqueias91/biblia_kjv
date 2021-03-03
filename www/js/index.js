@@ -1,4 +1,12 @@
 window.fn = {};
+var admobid = {}
+if (/(android)/i.test(navigator.userAgent)) {
+  admobid = {
+    banner: 'ca-app-pub-7091486462236476/1440852565',
+    interstitial: 'ca-app-pub-7091486462236476/4805382504',
+  }
+}
+
 $("#existeProximoCapitulo").val(0)
 var id = '';
 var usar_cores = 0;
@@ -77,7 +85,6 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
-
     if (JSON.parse(ultimo_capitulo_lido)) {
       fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
     }
@@ -85,6 +92,24 @@ var app = {
       fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
     }
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+
+    document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
+      // alert(JSON.stringify(event))
+    });
+
+    document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
+      // alert(JSON.stringify(event))
+    });
+
+    document.addEventListener('admob.interstitial.events.LOAD', function(event) {
+      // alert(JSON.stringify(event))
+      document.getElementsByClassName('showAd').disabled = false
+    });
+
+    document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
+      // alert(JSON.stringify(event))
+      admob.interstitial.prepare()
+    });
   },
   // deviceready Event Handler    
   // Bind any cordova events here. Common events are:
@@ -96,8 +121,10 @@ var app = {
   receivedEvent: function(id) {
     this.oneSignal();
     this.getIds();
-    this.buscaNotificacoes();
     this.buscaDadosUsuario();
+    this.buscaNotificacoes();
+    this.admob();
+    alert('Bem Vindo')
   },
   oneSignal: function() {
     window.plugins.OneSignal
@@ -801,7 +828,7 @@ var app = {
       });
     }*/
   },
-  verificaExistenciaUsuario: function(usuario, senha, nome, email) {
+  verificaExistenciaUsuario: function(usuario, religiao, nome, email, celular) {
     var uid = window.localStorage.getItem('uid');
     if (usuario != "") {
       fn.showDialog('modal-aguarde');
@@ -812,7 +839,8 @@ var app = {
         data: {
           'nome': nome,
           'email': email,
-          'senha': senha,
+          'religiao': religiao,
+          'celular': celular,
           'uid': uid,
         },
         error: function(e) {
@@ -834,6 +862,8 @@ var app = {
             localStorage.setItem("usuario", usuario);
             localStorage.setItem("nome", nome);
             localStorage.setItem("email", email);
+            localStorage.setItem("religiao", religiao);
+            localStorage.setItem("celular", celular);
 
             ons.notification.alert(
               'Dados cadastrados com sucesso!',
@@ -889,6 +919,34 @@ var app = {
         }
       });
     }
+  },
+  admob: function(){
+    window.plugins.insomnia.keepAwake();
+    admob.banner.config({ 
+      id: admobid.banner, 
+      isTesting: false, 
+      autoShow: true, 
+    })
+
+    if (!localStorage.getItem("versao_pro")) {
+      admob.banner.prepare()
+    }
+    
+    admob.interstitial.config({
+      id: admobid.interstitial,
+      isTesting: false,
+      autoShow: false,
+    })
+
+    if (!localStorage.getItem("versao_pro")) {
+      admob.interstitial.prepare()
+    }
+
+    document.getElementsByClassName('showAd').disabled = true
+    document.getElementsByClassName('showAd').onclick = function() {
+      admob.interstitial.show()
+    } 
+    
   }
 };
 

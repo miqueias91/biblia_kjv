@@ -21,60 +21,9 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
     <script type="text/javascript" src="js/firebase.js"></script>
     <script type="text/javascript">
-      var admobid = {}
-      if (/(android)/i.test(navigator.userAgent)) {
-        admobid = {
-          banner: 'ca-app-pub-7091486462236476/1440852565',
-          interstitial: 'ca-app-pub-7091486462236476/4805382504',
-        }
-      }
 
-      document.addEventListener('deviceready', function () {
-        this.buscaDadosUsuario();
-        window.plugins.insomnia.keepAwake();
-        admob.banner.config({ 
-          id: admobid.banner, 
-          isTesting: false, 
-          autoShow: true, 
-        })
 
-        if (!localStorage.getItem("versao_pro")) {
-          admob.banner.prepare()
-        }
-        
-        admob.interstitial.config({
-          id: admobid.interstitial,
-          isTesting: false,
-          autoShow: false,
-        })
 
-        if (!localStorage.getItem("versao_pro")) {
-          admob.interstitial.prepare()
-        }
-
-        document.getElementsByClassName('showAd').disabled = true
-        document.getElementsByClassName('showAd').onclick = function() {
-          admob.interstitial.show()
-        }
-      }, false);
-
-      document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
-        // alert(JSON.stringify(event))
-      });
-
-      document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
-        // alert(JSON.stringify(event))
-      });
-
-      document.addEventListener('admob.interstitial.events.LOAD', function(event) {
-        // alert(JSON.stringify(event))
-        document.getElementsByClassName('showAd').disabled = false
-      });
-
-      document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
-        // alert(JSON.stringify(event))
-        admob.interstitial.prepare()
-      });
     </script>
 
     <title>Bíblia Sagrada NTLH</title>
@@ -586,8 +535,16 @@
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="nome" placeholder="Seu Nome:" modifier="underbar" type="text" float></ons-input></p>
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="usuario" placeholder="Seu Usuário:" modifier="underbar" float></ons-input></p>
       <p><ons-input style="width: 90%;margin-bottom: 20px;" id="email" placeholder="Seu E-mail:" modifier="underbar" type="email" float></ons-input></p>
-      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="senha" placeholder="Sua Senha:" modifier="underbar" type="password" float></ons-input></p>
-      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="confirmar_senha" placeholder="Confirmar Senha:" modifier="underbar" type="password" float></ons-input></p>
+      <p><ons-input style="width: 90%;margin-bottom: 20px;" id="celular" placeholder="Seu Celular:" modifier="underbar" type="text" float></ons-input></p>
+      <p>
+        <ons-select style="width: 90%;margin-bottom: 20px;" id="religiao">
+          <option value="">Sua Religião:</option>
+          <option value="evangelico">Evengélico</option>
+          <option value="catolico">Católico</option>
+          <option value="outro">Outro</option>
+          <option value="sem_religiao">Sem Religião</option>
+        </ons-select>
+      </p>
       <br>
       <br>
       <section style="margin: 16px">
@@ -601,11 +558,15 @@
         var nome_ = localStorage.getItem("nome") ? localStorage.getItem("nome") : '';
         var usuario_ = localStorage.getItem("usuario") ? localStorage.getItem("usuario") : '';
         var email_ = localStorage.getItem("email") ? localStorage.getItem("email") : '';
+        var celular_ = localStorage.getItem("celular") ? localStorage.getItem("celular") : '';
+        var religiao_ = localStorage.getItem("religiao") ? localStorage.getItem("religiao") : '';
         
         $("#token").val(token_);
         $("#nome").val(nome_);
         $("#usuario").val(usuario_);
         $("#email").val(email_);
+        $("#celular").val(celular_);
+        $("#religiao").val(religiao_);
 
         app.registraAcesso('ntlh/minhasInformacoes.html');
         this.querySelector('#minhasInformacoes_ div.center').textContent = 'Minhas Informações';
@@ -614,16 +575,10 @@
             var nome = $("#nome").val();
             var usuario = $("#usuario").val();
             var email = $("#email").val();
-            var senha = $("#senha").val();
-            var confirmar_senha = $("#confirmar_senha").val();
+            var celular = $("#celular").val();
+            var religiao = $("#religiao").val();
 
-            if (senha != confirmar_senha) {
-              ons.notification.alert(
-                'As senhas não conferem!',
-                {title: 'Mensagem'}
-              );
-            }
-            else if (nome == "") {
+            if (nome == "") {
               ons.notification.alert(
                 'Informe o seu nome!',
                 {title: 'Mensagem'}
@@ -641,14 +596,20 @@
                 {title: 'Mensagem'}
               );
             }
-            else if (senha == "") {
+            else if (celular == "") {
               ons.notification.alert(
-                'Informe uma senha!',
+                'Informe seu n° de celular!',
+                {title: 'Mensagem'}
+              );
+            }
+            else if (religiao == "") {
+              ons.notification.alert(
+                'Informe sua religião!',
                 {title: 'Mensagem'}
               );
             }
             else{
-              app.verificaExistenciaUsuario(usuario, senha, nome, email);
+              app.verificaExistenciaUsuario(usuario, religiao, nome, email, celular);
             }
           });
  
