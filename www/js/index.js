@@ -122,10 +122,7 @@ var app = {
     this.getIds();
     this.buscaDadosUsuario();
     this.buscaNotificacoes();
-    alert(localStorage.getItem("uid"))
-    alert(localStorage.getItem("versao_pro"))
     this.admob();
-    alert('Bem Vindo')
   },
   oneSignal: function() {
     window.plugins.OneSignal
@@ -925,6 +922,7 @@ var app = {
     }
   },
   admob: function(){
+    alert('entrou no admob')
     window.plugins.insomnia.keepAwake();
     admob.banner.config({ 
       id: admobid.banner, 
@@ -932,9 +930,9 @@ var app = {
       autoShow: true, 
     })
 
-    if (!localStorage.getItem("versao_pro")) {
+    // if (!window.localStorage.getItem("versao_pro")) {
       admob.banner.prepare()
-    }
+    // }
     
     admob.interstitial.config({
       id: admobid.interstitial,
@@ -942,9 +940,9 @@ var app = {
       autoShow: false,
     })
 
-    if (!localStorage.getItem("versao_pro")) {
+    // if (!window.localStorage.getItem("versao_pro")) {
       admob.interstitial.prepare()
-    }
+    // }
 
     document.getElementsByClassName('showAd').disabled = true
     document.getElementsByClassName('showAd').onclick = function() {
