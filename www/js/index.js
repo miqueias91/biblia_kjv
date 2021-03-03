@@ -124,7 +124,6 @@ var app = {
     this.getIds();
     this.buscaDadosUsuario();
     this.buscaNotificacoes();
-    // this.admob();
   },
   oneSignal: function() {
     window.plugins.OneSignal
@@ -788,7 +787,7 @@ var app = {
       }
     });
 
-    this.cadastraUser();
+    app.cadastraUser();
   },
   cadastraUser: function() {
     var playerID = window.localStorage.getItem('playerID');
@@ -847,6 +846,10 @@ var app = {
           var timeoutID = 0;
           clearTimeout(timeoutID);
           timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+          ons.notification.alert(
+            'Verifique sua conexão com a internet!',
+            {title: 'Erro'}
+          );
         },
         success: function(a) {
           var timeoutID = 0;
@@ -855,7 +858,7 @@ var app = {
           if (a == true) {
             ons.notification.alert(
               'Escolha outro usuário!',
-              {title: 'Mensagem'}
+              {title: 'Erro'}
             );
           }
           else{
@@ -864,10 +867,9 @@ var app = {
             window.localStorage.setItem("email", email);
             window.localStorage.setItem("religiao", religiao);
             window.localStorage.setItem("celular", celular);
-
             ons.notification.alert(
-              'Dados cadastrados com sucesso!',
-              {title: 'Mensagem'}
+              'Dados atualizados com sucesso!',
+              {title: 'Sucesso'}
             );
           }
         },
@@ -885,17 +887,17 @@ var app = {
         data: {
           'uid': uid,
         },
-  
         success: function(a) {
           if (a) {
-            window.localStorage.setItem("usuario", a['usuario']);
             window.localStorage.setItem("nome", a['nome']);
+            window.localStorage.setItem("usuario", a['usuario']);
             window.localStorage.setItem("email", a['email']);
+            window.localStorage.setItem("celular", a['celular']);
+            window.localStorage.setItem("religiao", a['religiao']);
             if (a['final_versao_pro'] == null) {
               a['final_versao_pro'] = 'NAO';
             }
             window.localStorage.setItem("versao_pro", a['final_versao_pro']);
-            alert('entrou no buscaDadosUsuario: '+a['final_versao_pro'])
             app.admob();
           }
         },
@@ -926,8 +928,6 @@ var app = {
     }
   },
   admob: function(){
-    alert('entrou no admob: '+window.localStorage.getItem("versao_pro"))
-
     window.plugins.insomnia.keepAwake();
     admob.banner.config({ 
       id: admobid.banner, 

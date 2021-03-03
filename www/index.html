@@ -534,7 +534,7 @@
       <p>
         <ons-select style="width: 90%;margin-bottom: 20px;" id="religiao">
           <option value="">Sua Religião:</option>
-          <option value="evangelico">Evengélico</option>
+          <option value="evangelico">Evangélico</option>
           <option value="catolico">Católico</option>
           <option value="outro">Outro</option>
           <option value="sem_religiao">Sem Religião</option>
@@ -549,12 +549,12 @@
     <script>
       ons.getScriptPage().onInit = function () {
         // admob.interstitial.show();
-        var token_ = localStorage.getItem("uid") ? localStorage.getItem("uid") : '';
-        var nome_ = localStorage.getItem("nome") ? localStorage.getItem("nome") : '';
-        var usuario_ = localStorage.getItem("usuario") ? localStorage.getItem("usuario") : '';
-        var email_ = localStorage.getItem("email") ? localStorage.getItem("email") : '';
-        var celular_ = localStorage.getItem("celular") ? localStorage.getItem("celular") : '';
-        var religiao_ = localStorage.getItem("religiao") ? localStorage.getItem("religiao") : '';
+        var token_ = window.localStorage.getItem("uid") ? window.localStorage.getItem("uid") : '';
+        var nome_ = window.localStorage.getItem("nome") ? window.localStorage.getItem("nome") : '';
+        var usuario_ = window.localStorage.getItem("usuario") ? window.localStorage.getItem("usuario") : '';
+        var email_ = window.localStorage.getItem("email") ? window.localStorage.getItem("email") : '';
+        var celular_ = window.localStorage.getItem("celular") ? window.localStorage.getItem("celular") : '';
+        var religiao_ = window.localStorage.getItem("religiao") ? window.localStorage.getItem("religiao") : '';
         
         $("#token").val(token_);
         $("#nome").val(nome_);
@@ -576,31 +576,31 @@
             if (nome == "") {
               ons.notification.alert(
                 'Informe o seu nome!',
-                {title: 'Mensagem'}
+                {title: 'Erro'}
               );
             }
             else if (usuario == "") {
               ons.notification.alert(
                 'Informe um usuário!',
-                {title: 'Mensagem'}
+                {title: 'Erro'}
               );
             }
             else if (email == "") {
               ons.notification.alert(
                 'Informe seu e-mail!',
-                {title: 'Mensagem'}
+                {title: 'Erro'}
               );
             }
             else if (celular == "") {
               ons.notification.alert(
                 'Informe seu n° de celular!',
-                {title: 'Mensagem'}
+                {title: 'Erro'}
               );
             }
             else if (religiao == "") {
               ons.notification.alert(
                 'Informe sua religião!',
-                {title: 'Mensagem'}
+                {title: 'Erro'}
               );
             }
             else{
