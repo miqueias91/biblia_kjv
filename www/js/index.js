@@ -122,6 +122,8 @@ var app = {
     this.getIds();
     this.buscaDadosUsuario();
     this.buscaNotificacoes();
+    alert(localStorage.getItem("uid"))
+    alert(localStorage.getItem("versao_pro"))
     this.admob();
     alert('Bem Vindo')
   },
