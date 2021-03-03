@@ -98,7 +98,6 @@ var app = {
     this.getIds();
     this.buscaNotificacoes();
     this.buscaDadosUsuario();
-    alert('index')
   },
   oneSignal: function() {
     window.plugins.OneSignal
@@ -858,10 +857,12 @@ var app = {
   
         success: function(a) {
           if (a) {
-            console.log(a)
             localStorage.setItem("usuario", a['usuario']);
             localStorage.setItem("nome", a['nome']);
             localStorage.setItem("email", a['email']);
+            if (a['final_versao_pro'] == null) {
+              a['final_versao_pro'] = false;
+            }
             localStorage.setItem("versao_pro", a['final_versao_pro']);
           }
         },
