@@ -896,7 +896,7 @@ var app = {
             }
             window.localStorage.setItem("versao_pro", a['final_versao_pro']);
             alert('entrou no buscaDadosUsuario: '+a['final_versao_pro'])
-            app.admob();
+            this.admob();
           }
         },
       });
