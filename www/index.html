@@ -20,11 +20,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
     <script type="text/javascript" src="js/firebase.js"></script>
-    <script type="text/javascript">
-
-
-
-    </script>
 
     <title>Bíblia Sagrada NTLH</title>
 </head>
@@ -299,7 +294,7 @@
     <script>
       ons.getScriptPage().onInit = function () {
         app.registraAcesso('ntlh/versiculosMarcados.html');
-        if (!localStorage.getItem("versao_pro")) {
+        if (!JSON.parse(localStorage.getItem("versao_pro"))) {
           admob.interstitial.show();
         }
         $("#textoVersiculo").html('');
@@ -485,7 +480,7 @@
 
     <script>
       ons.getScriptPage().onInit = function () {
-        if (!localStorage.getItem("versao_pro")) {
+        if (!JSON.parse(localStorage.getItem("versao_pro"))) {
           admob.interstitial.show();
         }
         app.registraAcesso('ntlh/palavraDia.html');
@@ -653,7 +648,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          if (!localStorage.getItem("versao_pro")) {
+          if (!JSON.parse(localStorage.getItem("versao_pro"))) {
             admob.interstitial.show();
           }
           app.registraAcesso('ntlh/capitulosLidos.html');
@@ -1193,7 +1188,7 @@
         </div>
         <script>
           ons.getScriptPage().onInit = function () {
-            if (!localStorage.getItem("versao_pro")) {
+            if (!JSON.parse(localStorage.getItem("versao_pro"))) {
               admob.interstitial.show();
             }
             var dados = this.data.title.split('||'); 
@@ -1749,7 +1744,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          if (!localStorage.getItem("versao_pro")) {
+          if (!JSON.parse(localStorage.getItem("versao_pro"))) {
             admob.interstitial.show();
           }
           app.registraAcesso('ntlh/harpa.html');
@@ -1815,7 +1810,7 @@
         <div id='conteudoHarpa'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          if (!localStorage.getItem("versao_pro")) {
+          if (!JSON.parse(localStorage.getItem("versao_pro"))) {
             admob.interstitial.show();
           }
           var dados = this.data.title.split('||'); 
@@ -2139,7 +2134,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          if (!localStorage.getItem("versao_pro")) {
+          if (!JSON.parse(localStorage.getItem("versao_pro"))) {
             admob.interstitial.show();
           }
           app.registraAcesso('ntlh/cantor.html');
@@ -2205,7 +2200,7 @@
         <div id='conteudoCantor'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          if (!localStorage.getItem("versao_pro")) {
+          if (!JSON.parse(localStorage.getItem("versao_pro"))) {
             admob.interstitial.show();
           }
           var dados = this.data.title.split('||'); 
@@ -2237,7 +2232,7 @@
         </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        if (!localStorage.getItem("versao_pro")) {
+        if (!JSON.parse(localStorage.getItem("versao_pro"))) {
           admob.interstitial.show();
         }
         app.registraAcesso('ntlh/notificacoes.html');
@@ -2534,7 +2529,7 @@
     </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        if (!localStorage.getItem("versao_pro")) {
+        if (!JSON.parse(localStorage.getItem("versao_pro"))) {
           admob.interstitial.show();
         }
         app.registraAcesso('ntlh/versoes.html');
@@ -2592,6 +2587,62 @@
 </template>
 
 <script src="js/index.js"></script>
+    <script type="text/javascript">
+
+      var admobid = {}
+      if (/(android)/i.test(navigator.userAgent)) {
+        admobid = {
+          banner: 'ca-app-pub-7091486462236476/1440852565',
+          interstitial: 'ca-app-pub-7091486462236476/4805382504',
+        }
+      }
+
+      document.addEventListener('deviceready', function () {
+        window.plugins.insomnia.keepAwake();
+        admob.banner.config({ 
+          id: admobid.banner, 
+          isTesting: false, 
+          autoShow: true, 
+        })
+        alert(JSON.parse(localStorage.getItem("versao_pro")))
+        if (!JSON.parse(localStorage.getItem("versao_pro"))) {
+          admob.banner.prepare()
+        }
+        
+        admob.interstitial.config({
+          id: admobid.interstitial,
+          isTesting: false,
+          autoShow: false,
+        })
+
+        if (!JSON.parse(localStorage.getItem("versao_pro"))) {
+          admob.interstitial.prepare()
+        }
+
+        document.getElementsByClassName('showAd').disabled = true
+        document.getElementsByClassName('showAd').onclick = function() {
+          admob.interstitial.show()
+        }
+      }, false);
+
+      document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
+        // alert(JSON.stringify(event))
+      });
+
+      document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
+        // alert(JSON.stringify(event))
+      });
+
+      document.addEventListener('admob.interstitial.events.LOAD', function(event) {
+        // alert(JSON.stringify(event))
+        document.getElementsByClassName('showAd').disabled = false
+      });
+
+      document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
+        // alert(JSON.stringify(event))
+        admob.interstitial.prepare()
+      });
+    </script>
 
 </body>
 

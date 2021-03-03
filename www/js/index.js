@@ -26,7 +26,6 @@ localStorage.setItem("modo-noturno", modo_noturno);
 if (!window.localStorage.getItem('lista-versiculos')) {
   localStorage.setItem("lista-versiculos", '[]'); 
 }
-localStorage.setItem("versao_pro",false);
 
 if (!window.localStorage.getItem('versao-biblia')) {
   localStorage.setItem("versao-biblia", 'ntlh'); 
@@ -887,10 +886,12 @@ var app = {
   
         success: function(a) {
           if (a) {
-            console.log(a)
             localStorage.setItem("usuario", a['usuario']);
             localStorage.setItem("nome", a['nome']);
             localStorage.setItem("email", a['email']);
+            if (a['final_versao_pro'] == null) {
+              a['final_versao_pro'] = false;
+            }
             localStorage.setItem("versao_pro", a['final_versao_pro']);
           }
         },
