@@ -857,11 +857,11 @@ var app = {
             );
           }
           else{
-            localStorage.setItem("usuario", usuario);
-            localStorage.setItem("nome", nome);
-            localStorage.setItem("email", email);
-            localStorage.setItem("religiao", religiao);
-            localStorage.setItem("celular", celular);
+            window.localStorage.setItem("usuario", usuario);
+            window.localStorage.setItem("nome", nome);
+            window.localStorage.setItem("email", email);
+            window.localStorage.setItem("religiao", religiao);
+            window.localStorage.setItem("celular", celular);
 
             ons.notification.alert(
               'Dados cadastrados com sucesso!',
@@ -885,14 +885,14 @@ var app = {
   
         success: function(a) {
           if (a) {
-            localStorage.setItem("usuario", a['usuario']);
-            localStorage.setItem("nome", a['nome']);
-            localStorage.setItem("email", a['email']);
+            window.localStorage.setItem("usuario", a['usuario']);
+            window.localStorage.setItem("nome", a['nome']);
+            window.localStorage.setItem("email", a['email']);
             if (a['final_versao_pro'] == null) {
               a['final_versao_pro'] = false;
             }
-            alert(a['final_versao_pro'])
-            localStorage.setItem("versao_pro", a['final_versao_pro']);
+            window.localStorage.setItem("versao_pro", a['final_versao_pro']);
+            alert('entrou no buscaDadosUsuario: '+a['final_versao_pro'])
           }
         },
       });
@@ -922,7 +922,8 @@ var app = {
     }
   },
   admob: function(){
-    alert('entrou no admob')
+    alert('entrou no admob: '+window.localStorage.getItem("versao_pro"))
+
     window.plugins.insomnia.keepAwake();
     admob.banner.config({ 
       id: admobid.banner, 
@@ -930,9 +931,9 @@ var app = {
       autoShow: true, 
     })
 
-    // if (!window.localStorage.getItem("versao_pro")) {
+    if (!window.localStorage.getItem("versao_pro")) {
       admob.banner.prepare()
-    // }
+    }
     
     admob.interstitial.config({
       id: admobid.interstitial,
@@ -940,9 +941,9 @@ var app = {
       autoShow: false,
     })
 
-    // if (!window.localStorage.getItem("versao_pro")) {
+    if (!window.localStorage.getItem("versao_pro")) {
       admob.interstitial.prepare()
-    // }
+    }
 
     document.getElementsByClassName('showAd').disabled = true
     document.getElementsByClassName('showAd').onclick = function() {
