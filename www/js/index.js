@@ -37,6 +37,8 @@ if (window.localStorage.getItem('userId')) {
   localStorage.removeItem('userId');
 }
 
+window.localStorage.setItem("versao_pro", 'NAO');
+
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
 };
@@ -122,7 +124,7 @@ var app = {
     this.getIds();
     this.buscaDadosUsuario();
     this.buscaNotificacoes();
-    this.admob();
+    // this.admob();
   },
   oneSignal: function() {
     window.plugins.OneSignal
@@ -879,6 +881,7 @@ var app = {
         url: "https://www.innovatesoft.com.br/webservice/app/buscaDadosUsuario.php",
         dataType: 'json',
         type: 'POST',
+        async: true,
         data: {
           'uid': uid,
         },
@@ -889,10 +892,11 @@ var app = {
             window.localStorage.setItem("nome", a['nome']);
             window.localStorage.setItem("email", a['email']);
             if (a['final_versao_pro'] == null) {
-              a['final_versao_pro'] = 'EXIBIR_ANUNCIO';
+              a['final_versao_pro'] = 'NAO';
             }
             window.localStorage.setItem("versao_pro", a['final_versao_pro']);
             alert('entrou no buscaDadosUsuario: '+a['final_versao_pro'])
+            this.admob();
           }
         },
       });
@@ -931,7 +935,7 @@ var app = {
       autoShow: true, 
     })
 
-    if (window.localStorage.getItem("versao_pro") === 'EXIBIR_ANUNCIO') {
+    if (window.localStorage.getItem("versao_pro") === 'NAO') {
       admob.banner.prepare()
     }
     
@@ -941,7 +945,7 @@ var app = {
       autoShow: false,
     })
 
-    if (window.localStorage.getItem("versao_pro") === 'EXIBIR_ANUNCIO') {
+    if (window.localStorage.getItem("versao_pro") === 'NAO') {
       admob.interstitial.prepare()
     }
 
