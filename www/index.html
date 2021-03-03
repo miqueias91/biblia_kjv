@@ -2594,7 +2594,7 @@
           isTesting: false, 
           autoShow: true, 
         })
-
+        alert(JSON.parse(localStorage.getItem("versao_pro")))
         if (!JSON.parse(localStorage.getItem("versao_pro"))) {
           admob.banner.prepare()
         }

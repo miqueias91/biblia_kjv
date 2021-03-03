@@ -15,7 +15,6 @@ var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20'
 localStorage.setItem("fonte-versiculo", fonte_versiculo);
 var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
 localStorage.setItem("modo-noturno", modo_noturno);
-localStorage.setItem("versao_pro",false);
 if (!window.localStorage.getItem('lista-versiculos')) {
   localStorage.setItem("lista-versiculos", '[]'); 
 }
