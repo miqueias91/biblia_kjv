@@ -892,6 +892,7 @@ var app = {
             if (a['final_versao_pro'] == null) {
               a['final_versao_pro'] = false;
             }
+            alert(a['final_versao_pro'])
             localStorage.setItem("versao_pro", a['final_versao_pro']);
           }
         },
